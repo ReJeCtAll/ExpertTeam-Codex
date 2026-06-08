@@ -175,6 +175,18 @@ $expert-software --fast 做一个 Todo App
 
 ---
 
+## 使用截图
+
+安装完成后，在 Codex CLI 或 Codex App 桌面版输入 `$expert`，可以看到专家团 Skills 候选：
+
+![Codex Expert Teams skill picker](docs/assets/codex-skill-picker.jpg)
+
+日常使用时可以优先从 `$expert-team` 进入，由总路由根据需求分流到产品、设计或软件开发团队：
+
+![Codex Expert Teams usage example](docs/assets/expert-team-usage.jpg)
+
+---
+
 ## Codex App 桌面版说明
 
 Codex App 桌面版与 Codex CLI 保持同样用法：
