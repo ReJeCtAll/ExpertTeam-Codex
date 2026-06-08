@@ -2,7 +2,7 @@
 
 一套可直接安装到 `~/.codex` 的专家团配置，面向 **Codex CLI / Codex App 桌面版的 Skill 调用方式** 提供 3 个专家团与 1 个总路由入口。
 
-> 重要更正：Codex CLI 和 Codex App 桌面版当前主要通过 `$skill-name` 调用 Skill，例如 `$design`。因此本仓库的推荐调用方式是 `$expert-software`、`$expert-design`、`$expert-product`、`$expert-team`，不是 `/expert-software`。
+> 重要：Codex CLI 和 Codex App 桌面版当前主要通过 `$skill-name` 调用 Skill，例如 `$design`。因此本仓库的推荐调用方式是 `$expert-software`、`$expert-design`、`$expert-product`、`$expert-team`。
 
 ---
 
@@ -49,7 +49,7 @@
 │   │   ├── competitive-analyst.md
 │   │   ├── data-analyst.md
 │   │   └── roadmap-planner.md
-│   └── commands/                     # 可选：仅适用于支持 slash command 的环境
+│   └── commands/                     # 可选兼容配置
 │       ├── expert-team.md
 │       ├── expert-software.md
 │       ├── expert-design.md
@@ -174,8 +174,6 @@ $expert-product --prd 写一个 AI 笔记功能 PRD
 $expert-team product 分析 AI 笔记产品的竞品和路线图
 ```
 
-如果你在 Codex App 桌面版里输入 `/expert-software` 后看到 `Unrecognized command`，这不是安装失败，而是当前桌面版没有读取 `.codex/commands`。请改用 `$expert-software`。
-
 验证方式同样是输入：
 
 ```text
@@ -208,18 +206,6 @@ $expert-software --fast <需求>
 $expert-design --full <页面或产品原型需求>
 ```
 
----
-
-## 关于 `/expert-*` Slash Commands
-
-仓库仍保留 `.codex/commands/expert-*.md`，但它们是 **可选兼容层**：
-
-- 如果你的 Codex 环境支持自定义 Slash Commands，可以尝试 `/expert-software`。
-- 如果提示 `Unrecognized command`，说明当前环境不读取 `.codex/commands`。
-- 在 Codex CLI 和 Codex App 桌面版中，请优先使用 `$expert-software` 这类 Skill 调用。
-
----
-
 ## 设计原则
 
 - **专家团路由**：让任务先进入正确团队，而不是一个助手包办所有事情。
@@ -237,7 +223,6 @@ $expert-design --full <页面或产品原型需求>
 | Codex CLI 支持 Skills | `$expert-*` | 推荐，当前主入口 |
 | Codex App 桌面版支持 Skills | `$expert-*` | 与 CLI 同样用法 |
 | 环境支持 Agents | `$expert-*` + agents | 更接近多角色专家团 |
-| 环境支持 Slash Commands | `/expert-*` | 可选兼容层 |
 | 只支持普通对话 | 复制 Skill 内容 | 可作为结构化 Prompt 使用 |
 
 ---
