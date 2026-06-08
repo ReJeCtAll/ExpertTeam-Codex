@@ -239,6 +239,12 @@ $expert-design --full <页面或产品原型需求>
 
 ---
 
+## 🔗 Friendly Links
+
+- [LinuxDo](https://linux.do/) — a community of people who love technology.
+
+---
+
 ## 开源协议
 
 MIT License。详见 [LICENSE](LICENSE)。
