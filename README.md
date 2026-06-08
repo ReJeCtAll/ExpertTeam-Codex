@@ -103,6 +103,18 @@ cp -R .codex/commands/* ~/.codex/commands/
 
 ---
 
+## Codex CLI 安装截图
+
+安装前可以先让 Codex CLI 克隆仓库并做内容层面的风险检查，确认没有 `sudo`、远程执行、凭证读取、强制覆盖等高风险操作：
+
+![Codex CLI install review](docs/assets/codex-cli-install-review.jpg)
+
+安装完成后，确认 Skills、Agents 和 Commands 已落盘到本机 `~/.codex`：
+
+![Codex CLI install result](docs/assets/codex-cli-install-result.png)
+
+---
+
 ## Codex CLI / Codex App 桌面版可用命令
 
 ### 总路由
