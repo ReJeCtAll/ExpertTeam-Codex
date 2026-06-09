@@ -79,20 +79,38 @@ README 作为快速入口，适合先了解能力范围、安装方式和正式�
 
 ## 快速安装
 
-### 方式 1：一键安装
+### 方式 1：远程一键安装
 
 ```bash
+curl -fsSL https://raw.githubusercontent.com/ReJeCtAll/ExpertTeam-Codex/main/install.sh | bash
+```
+
+无需提前克隆仓库。安装脚本会自动：
+
+1. 下载 GitHub 仓库的最新 `main` 分支归档。
+2. 创建 `~/.codex/skills`、`~/.codex/agents`、`~/.codex/commands`。
+3. 将专家团配置安装到本机 `~/.codex`。
+4. 对同名旧文件自动备份为 `.bak.<timestamp>`，避免直接覆盖丢失。
+
+需要本机已安装 `bash`、`curl` 和 `tar`。如使用了自定义 Codex 目录，可通过 `CODEX_HOME` 指定：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ReJeCtAll/ExpertTeam-Codex/main/install.sh \
+  | CODEX_HOME=/path/to/.codex bash
+```
+
+### 方式 2：克隆后审查并安装
+
+适合希望在执行前检查脚本和仓库内容的用户：
+
+```bash
+git clone https://github.com/ReJeCtAll/ExpertTeam-Codex.git
+cd ExpertTeam-Codex
 chmod +x install.sh
 ./install.sh
 ```
 
-安装脚本会：
-
-1. 创建 `~/.codex/skills`、`~/.codex/agents`、`~/.codex/commands`。
-2. 将本仓库的专家团配置复制进去。
-3. 对同名旧文件自动备份为 `.bak.<timestamp>`，避免直接覆盖丢失。
-
-### 方式 2：手动复制
+### 方式 3：手动复制
 
 ```bash
 mkdir -p ~/.codex/skills ~/.codex/agents ~/.codex/commands
@@ -103,11 +121,13 @@ cp -R .codex/commands/* ~/.codex/commands/
 
 ---
 
-## Codex CLI 安装截图
+## Codex CLI 审查式安装截图
 
-安装前可以先让 Codex CLI 克隆仓库并做内容层面的风险检查，确认没有 `sudo`、远程执行、凭证读取、强制覆盖等高风险操作：
+若选择克隆后安装，可以先让 Codex CLI 做内容层面的风险检查，确认没有 `sudo`、凭证读取、强制覆盖等高风险操作：
 
 ![Codex CLI install review](docs/assets/codex-cli-install-review.jpg)
+
+> 截图展示的是克隆仓库后的本地审查流程。方式一的远程安装会通过 HTTPS 下载本仓库的 `main` 分支归档。
 
 安装完成后，确认 Skills、Agents 和 Commands 已落盘到本机 `~/.codex`：
 

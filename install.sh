@@ -1,9 +1,64 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TARGET_DIR="${CODEX_HOME:-$HOME/.codex}"
 TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
+ARCHIVE_URL="${EXPERT_TEAM_ARCHIVE_URL:-https://github.com/ReJeCtAll/ExpertTeam-Codex/archive/refs/heads/main.tar.gz}"
+TEMP_DIR=""
+ROOT_DIR=""
+
+cleanup() {
+  if [ -n "$TEMP_DIR" ] && [ -d "$TEMP_DIR" ]; then
+    rm -r -- "$TEMP_DIR"
+  fi
+}
+trap cleanup EXIT
+
+require_command() {
+  local command_name="$1"
+  if ! command -v "$command_name" >/dev/null 2>&1; then
+    echo "Required command not found: $command_name" >&2
+    exit 1
+  fi
+}
+
+resolve_root_dir() {
+  local script_source="${BASH_SOURCE[0]:-}"
+  local script_dir=""
+
+  if [ -n "$script_source" ] && [ -f "$script_source" ]; then
+    script_dir="$(cd "$(dirname "$script_source")" && pwd)"
+  fi
+
+  if [ -n "$script_dir" ] && [ -d "$script_dir/.codex" ]; then
+    ROOT_DIR="$script_dir"
+    return 0
+  fi
+
+  require_command curl
+  require_command tar
+  require_command mktemp
+
+  TEMP_DIR="$(mktemp -d)"
+  local archive_path="$TEMP_DIR/expert-team-codex.tar.gz"
+  local candidate=""
+
+  echo "Downloading Codex Expert Teams..."
+  curl -fsSL "$ARCHIVE_URL" -o "$archive_path"
+  tar -xzf "$archive_path" -C "$TEMP_DIR"
+
+  for candidate in "$TEMP_DIR"/*; do
+    if [ -d "$candidate/.codex" ]; then
+      ROOT_DIR="$candidate"
+      return 0
+    fi
+  done
+
+  echo "Downloaded archive does not contain a .codex directory." >&2
+  exit 1
+}
+
+resolve_root_dir
 
 backup_if_exists() {
   local target="$1"
