@@ -1,7 +1,6 @@
 ---
 name: product-playbook
 description: 产品战略团队完整手册。覆盖需求文档撰写、路线图管理、竞品分析、用户研究综合、指标评审、Sprint规划、干系人沟通和产品头脑风暴全流程。当涉及任何产品管理相关的请求时自动触发。
-argument-hint: "<描述你需要产品团队帮助的事项>"
 ---
 
 # 产品战略团队手册 (Product Playbook)

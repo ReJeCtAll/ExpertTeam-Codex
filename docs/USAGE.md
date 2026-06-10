@@ -26,6 +26,7 @@ $expert-team 帮我从 0 到 1 设计并实现一个 AI 笔记产品 MVP
 $expert-team software 修复登录后白屏问题
 $expert-team design 做一个高端 B2B SaaS 官网原型
 $expert-team product 分析 AI 笔记产品的竞品和路线图
+$expert-team ops Design monitoring, backup, and capacity plans for production services
 ```
 
 ---
@@ -151,7 +152,43 @@ $expert-product --brainstorm 围绕 AI 个人知识库做 20 个产品创意，�
 
 ---
 
-## 5. 跨团队流水线
+## 5. 基础设施运维专家
+
+适合：部署上线、监控告警、云基础设施与 IaC、安全加固、成本优化、备份恢复和容量规划。
+
+### 监控告警
+
+```text
+$expert-ops --monitor Design Prometheus and Grafana monitoring for an API, PostgreSQL, and Redis
+```
+
+### 基础设施架构
+
+```text
+$expert-ops --infra Design a multi-AZ AWS architecture with Terraform module boundaries and a change plan
+```
+
+### 安全与成本
+
+```text
+$expert-ops --security Audit Linux, Kubernetes, and cloud account risks and prioritize hardening
+$expert-ops --cost Analyze billing and utilization data with savings ranges and ROI
+```
+
+### 备份与容量
+
+```text
+$expert-ops --backup Design PostgreSQL recovery with a 15-minute RPO and a 1-hour RTO
+$expert-ops --capacity Create a capacity plan for the next 12 months of growth
+```
+
+### 完整评估
+
+```text
+$expert-ops --full Assess monitoring, architecture, security, cost, backup, and capacity
+```
+
+## 6. 跨团队流水线
 
 ### 从想法到代码
 
@@ -159,6 +196,7 @@ $expert-product --brainstorm 围绕 AI 个人知识库做 20 个产品创意，�
 $expert-product --prd <产品想法>
 $expert-design --full <基于 PRD 做原型>
 $expert-software --standard <基于 PRD 和原型实现>
+$expert-ops --full <design deployment, monitoring, and operations from the system architecture>
 ```
 
 ### 已有项目加功能
@@ -176,9 +214,17 @@ $expert-design --full <根据审查建议重做高保真原型>
 $expert-software --code <把原型落到项目代码里>
 ```
 
+### 线上稳定性治理
+
+```text
+$expert-ops --full <assess reliability, security, cost, and recoverability>
+$expert-software --bugfix <fix findings that require code changes>
+$expert-ops --monitor <verify monitoring, alerts, and runtime metrics>
+```
+
 ---
 
-## 6. Codex App 桌面版用法
+## 7. Codex App 桌面版用法
 
 Codex App 桌面版与 Codex CLI 使用同一套 `$skill-name` 入口。安装后在桌面版对话框中直接输入：
 
@@ -186,6 +232,7 @@ Codex App 桌面版与 Codex CLI 使用同一套 `$skill-name` 入口。安装�
 $expert-software --fast 做一个 Todo App
 $expert-design --full 做一个 AI Agent 平台 Landing Page
 $expert-product --prd 写一个 AI 笔记功能 PRD
+$expert-ops --monitor Design a monitoring and alerting plan for production services
 $expert-team product 分析 AI 笔记产品的竞品和路线图
 ```
 
@@ -199,7 +246,7 @@ Unrecognized command '/expert-software'
 
 ---
 
-## 7. 安装后验证
+## 8. 安装后验证
 
 在 Codex CLI 或 Codex App 桌面版输入：
 
@@ -214,27 +261,30 @@ expert-team
 expert-software
 expert-design
 expert-product
+expert-ops
 ```
 
 如果看不到：
 
-1. 确认文件存在：`~/.codex/skills/expert-software/SKILL.md`
+1. 确认对应文件存在，例如 `~/.codex/skills/expert-ops/SKILL.md`。
 2. 重启 Codex CLI 或 Codex App 桌面版。
-3. 确认 `SKILL.md` frontmatter 里有 `name: expert-software`。
+3. 确认 `SKILL.md` frontmatter 中的 `name` 与目录名一致。
 
 ---
 
-## 8. 最佳实践
+## 9. 最佳实践
 
 - 小需求优先 `$expert-software --fast`，避免流程过重。
 - 大需求先 `$expert-product --prd`，再进入设计和研发。
 - 视觉质量不满意时，不要直接让工程师改 CSS，先让 `$expert-design --review` 做质量门禁。
 - 竞品、路线图、指标问题不要交给软件团队，优先产品战略团队。
+- 部署、监控、备份、云资源和容量问题优先交给 `$expert-ops`。
+- 运维专家默认先做只读发现；生产变更必须明确风险、回滚和验证步骤。
 - 涉及认证、支付、隐私、密钥、权限时，额外做安全审查。
 
 ---
 
-## 9. 关于 Slash Commands
+## 10. 关于 Slash Commands
 
 仓库中仍保留 `.codex/commands/expert-*.md` 作为可选兼容层。但如果你的 Codex CLI 或 Codex App 桌面版提示：
 

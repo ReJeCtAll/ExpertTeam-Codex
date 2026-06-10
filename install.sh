@@ -6,6 +6,7 @@ TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
 ARCHIVE_URL="${EXPERT_TEAM_ARCHIVE_URL:-https://github.com/ReJeCtAll/ExpertTeam-Codex/archive/refs/heads/main.tar.gz}"
 TEMP_DIR=""
 ROOT_DIR=""
+PROJECT_VERSION="unknown"
 
 cleanup() {
   if [ -n "$TEMP_DIR" ] && [ -d "$TEMP_DIR" ]; then
@@ -60,11 +61,23 @@ resolve_root_dir() {
 
 resolve_root_dir
 
+if [ -f "$ROOT_DIR/VERSION" ]; then
+  IFS= read -r PROJECT_VERSION <"$ROOT_DIR/VERSION"
+fi
+
 backup_if_exists() {
   local target="$1"
-  if [ -e "$target" ]; then
-    cp -R "$target" "${target}.bak.${TIMESTAMP}"
-    echo "Backed up: $target -> ${target}.bak.${TIMESTAMP}"
+  if [ -e "$target" ] || [ -L "$target" ]; then
+    local backup_path="${target}.bak.${TIMESTAMP}"
+    local suffix=1
+
+    while [ -e "$backup_path" ] || [ -L "$backup_path" ]; do
+      backup_path="${target}.bak.${TIMESTAMP}.${suffix}"
+      suffix=$((suffix + 1))
+    done
+
+    cp -R "$target" "$backup_path"
+    echo "Backed up: $target -> $backup_path"
   fi
 }
 
@@ -83,9 +96,14 @@ install_dir_contents() {
     [ -e "$item" ] || continue
     local base
     base="$(basename "$item")"
-    backup_if_exists "$target_dir/$base"
-    cp -R "$item" "$target_dir/"
-    echo "Installed: $target_dir/$base"
+    local target="$target_dir/$base"
+
+    backup_if_exists "$target"
+    if [ -e "$target" ] || [ -L "$target" ]; then
+      rm -rf -- "$target"
+    fi
+    cp -R "$item" "$target"
+    echo "Installed: $target"
   done
 }
 
@@ -97,10 +115,12 @@ install_dir_contents "$ROOT_DIR/.codex/skills" "$TARGET_DIR/skills"
 
 echo ""
 echo "Installation completed."
+echo "Version: $PROJECT_VERSION"
 echo "Available Codex CLI skills:"
 echo '  $expert-team'
 echo '  $expert-software'
 echo '  $expert-design'
 echo '  $expert-product'
+echo '  $expert-ops'
 echo ""
 echo 'Tip: type $expert in Codex CLI to verify skill discovery.'

@@ -1,6 +1,6 @@
 # 专家团架构说明
 
-Codex Expert Teams 由 4 个 Codex CLI / Codex App 桌面版入口 Skills、17 个 Agents、4 个支撑 Skills，以及 4 个可选 Slash Commands 兼容层组成。
+Codex Expert Teams 由 5 个 Codex CLI / Codex App 桌面版入口 Skills、18 个 Agents、4 个支撑 Skills，以及 5 个可选 Slash Commands 兼容层组成。业务入口包括 3 个团队型专家团和 1 个单专家，总路由统一分发。
 
 ---
 
@@ -21,13 +21,15 @@ $expert-team
 │   ├── prototype-builder
 │   ├── critique-reviewer
 │   └── export-specialist
-└── $expert-product
-    ├── product-director
-    ├── requirement-analyst
-    ├── user-researcher
-    ├── competitive-analyst
-    ├── data-analyst
-    └── roadmap-planner
+├── $expert-product
+│   ├── product-director
+│   ├── requirement-analyst
+│   ├── user-researcher
+│   ├── competitive-analyst
+│   ├── data-analyst
+│   └── roadmap-planner
+└── $expert-ops
+    └── infrastructure-operations-expert
 ```
 
 ---
@@ -100,7 +102,7 @@ $expert-team
 
 ### 定位
 
-由产品总监领导的 5 人产品专家团队，面向产品战略、竞品分析和路线图规划。
+由产品总监领导的 6 人产品专家团队，面向产品战略、竞品分析和路线图规划。
 
 ### 成员
 
@@ -132,14 +134,64 @@ $expert-team
 
 ---
 
-## 4. 扩展方式
+## 4. 基础设施运维专家
+
+### 定位
+
+单专家模式，负责部署上线后的可靠性、可观测性、安全、成本、备份和容量问题。它不创建虚假的多角色团队，而是按专项参数直接进入对应运维工作流。
+
+### Agent
+
+| Agent | 角色 | 职责 |
+|---|---|---|
+| `infrastructure-operations-expert` | 基础设施运维专家 | 事实基线、风险评估、方案设计、变更计划、验证与健康报告 |
+
+### 工作流
+
+- `--monitor`：监控、告警、日志、追踪和 SLO
+- `--infra`：云基础设施、网络、IaC 和自动扩缩容
+- `--security`：漏洞、权限、密钥、审计、事件响应和合规差距
+- `--cost`：资源利用率、规格调整、预留容量和 ROI
+- `--backup`：RPO/RTO、备份、加密、异地副本和恢复演练
+- `--capacity`：增长预测、资源水位、扩容触发器和投资需求
+- `--full`：完整基础设施健康评估
+
+### 质量门禁
+
+- 默认先做只读发现，不在未授权时修改生产环境
+- 所有生产变更必须包含预检查、回滚条件、观察窗口和验证指标
+- 配置与脚本必须声明版本假设、依赖和待替换变量
+- 合规结论必须基于证据，不能仅凭清单宣称通过认证
+- 成本与 ROI 必须给出计算口径，缺少数据时标注估算区间
+
+## 5. 跨专家协作边界
+
+```text
+$expert-product
+      ↓
+$expert-design
+      ↓
+$expert-software
+      ↓
+$expert-ops
+```
+
+- 产品战略团队负责产品决策、需求分析和投资优先级。
+- 设计原型专家团负责视觉设计、交互和原型。
+- 软件开发团队负责代码、测试和工程实现。
+- 基础设施运维专家负责部署、监控、安全、成本、备份和容量。
+- 运维专家发现需要开发自动化工具或平台功能时，转交 `$expert-software`。
+- 运维专家遇到容量投资和预算优先级决策时，转交 `$expert-product`。
+
+## 6. 扩展方式
 
 ### 新增团队
 
-1. 在 `.codex/agents/` 添加新的 lead agent。
-2. 添加成员 agent。
-3. 在 `.codex/commands/` 创建新的 slash command。
-4. 更新 `expert-team.md` 的路由表。
+1. 在 `.codex/agents/` 添加新的 lead agent 或单专家 agent。
+2. 团队型入口添加成员 agent；单专家入口无需虚构成员。
+3. 在 `.codex/skills/` 添加正式 Skill 入口。
+4. 在 `.codex/commands/` 创建可选 slash command。
+5. 更新 `expert-team` Skill 和 command 的路由表。
 
 ### 新增 Skill
 
@@ -149,4 +201,4 @@ $expert-team
 
 ### 调整质量门禁
 
-优先修改 lead agent，而不是只修改 command。Command 负责路由，Lead Agent 负责团队执行规则。
+团队型入口优先修改 lead agent，单专家入口优先修改对应 agent。Command 负责兼容路由，Agent 负责专业执行规则。

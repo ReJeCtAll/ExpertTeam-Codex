@@ -4,7 +4,6 @@ description: |
   设计原型专家团入口。用于 Codex CLI 的 $expert-design 调用。
   覆盖需求发现、设计系统选择、原型生成、质量审查和导出交付。
   触发词：设计原型、UI、UX、设计系统、高保真、HTML 原型、品牌设计、页面设计
-argument-hint: "[--style|--review|--export|--full] <设计/原型需求>"
 ---
 
 # Expert Design - 设计原型专家团

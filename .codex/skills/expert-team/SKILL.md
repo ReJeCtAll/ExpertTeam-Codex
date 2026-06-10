@@ -2,9 +2,8 @@
 name: expert-team
 description: |
   专家团总路由器。用于 Codex CLI 的 $expert-team 调用。
-  自动在软件开发团队、设计原型专家团、产品战略团队之间路由，也支持显式指定 software/design/product。
-  触发词：专家团、团队协作、软件开发、设计原型、产品战略、PRD、竞品、路线图
-argument-hint: "[software|design|product] <你的需求>"
+  自动在软件开发团队、设计原型专家团、产品战略团队和基础设施运维专家之间路由，也支持显式指定 software/design/product/ops。
+  触发词：专家团、团队协作、软件开发、设计原型、产品战略、基础设施运维、SRE、PRD、竞品、路线图、监控、部署、安全加固
 ---
 
 # Expert Team - 专家团总路由器
@@ -18,6 +17,7 @@ $expert-team <你的需求>
 $expert-team software <软件开发需求>
 $expert-team design <设计原型需求>
 $expert-team product <产品战略需求>
+$expert-team ops <infrastructure operations request>
 ```
 
 > 注意：Codex CLI 当前使用 `$skill-name` 调用 Skill，不一定识别 `/expert-team` Slash Command。
@@ -69,18 +69,35 @@ $expert-design <需求>
 $expert-product <需求>
 ```
 
+### 4. 基础设施运维专家 → `expert-ops`
+
+适合：
+
+- 部署上线、监控告警、可观测性和 SLO
+- 云基础设施、Terraform/Ansible、网络和自动扩缩容
+- 安全加固、访问控制、备份恢复和事件响应
+- 成本优化、容量规划和基础设施健康评估
+
+建议转为：
+
+```text
+$expert-ops <request>
+```
+
 ## 自动路由规则
 
 收到用户需求后：
 
-1. 如果包含明确的 `software` / `design` / `product` 前缀，按前缀强制路由。
+1. 如果包含明确的 `software` / `design` / `product` / `ops` 前缀，按前缀强制路由。
 2. 如果是代码实现、Bug 修复、测试、架构，使用软件开发团队。
 3. 如果是视觉设计、UI、原型、设计系统、导出，使用设计原型专家团。
 4. 如果是 PRD、竞品、用户研究、指标、路线图，使用产品战略团队。
-5. 如果是从 0 到 1 的完整产品请求，建议流水线：
+5. 如果是部署、云资源、监控、告警、安全加固、备份、成本或容量，使用基础设施运维专家。
+6. 如果是从 0 到 1 并上线运营的完整产品请求，建议流水线：
    - 先 `$expert-product --prd`
    - 再 `$expert-design --full`
-   - 最后 `$expert-software --standard`
+   - 然后 `$expert-software --standard`
+   - 最后 `$expert-ops --full`
 
 ## 输出要求
 

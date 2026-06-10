@@ -4,7 +4,6 @@ description: |
   软件开发团队专家团入口。用于 Codex CLI 的 $expert-software 调用。
   支持快速模式、BugFix、标准 SOP、PRD、架构设计、代码实现、测试验证。
   触发词：软件开发、写代码、修 bug、PRD、架构设计、测试、QA、工程交付
-argument-hint: "[--fast|--bugfix|--prd|--arch|--code|--test|--standard] <软件开发需求>"
 ---
 
 # Expert Software - 软件开发团队

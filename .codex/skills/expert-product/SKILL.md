@@ -4,7 +4,6 @@ description: |
   产品战略团队专家团入口。用于 Codex CLI 的 $expert-product 调用。
   覆盖 PRD、竞品分析、用户研究、指标分析、路线图、Sprint 和干系人更新。
   触发词：产品战略、PRD、竞品分析、用户研究、路线图、指标分析、Sprint、头脑风暴
-argument-hint: "[--prd|--competitive|--research|--metrics|--roadmap|--sprint|--stakeholder|--brainstorm] <产品管理需求>"
 ---
 
 # Expert Product - 产品战略团队
