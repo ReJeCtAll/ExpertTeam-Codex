@@ -68,9 +68,13 @@ assert_install_complete() {
   assert_tree_matches "$REPO_ROOT/.codex/commands" "$codex_home/commands"
   assert_tree_matches "$REPO_ROOT/.codex/skills" "$codex_home/skills"
   assert_file "$codex_home/agents/infrastructure-operations-expert.md"
+  assert_file "$codex_home/agents/security-expert.md"
   assert_file "$codex_home/commands/expert-ops.md"
+  assert_file "$codex_home/commands/expert-security.md"
   assert_file "$codex_home/skills/expert-ops/SKILL.md"
   assert_file "$codex_home/skills/expert-ops/agents/openai.yaml"
+  assert_file "$codex_home/skills/expert-security/SKILL.md"
+  assert_file "$codex_home/skills/expert-security/agents/openai.yaml"
 }
 
 test_local_install() {
@@ -85,6 +89,7 @@ test_local_install() {
   assert_contains "$log_file" 'Installation completed.'
   assert_contains "$log_file" "Version: $PROJECT_VERSION"
   assert_contains "$log_file" '$expert-ops'
+  assert_contains "$log_file" '$expert-security'
 }
 
 test_piped_archive_install() {
@@ -105,6 +110,7 @@ test_piped_archive_install() {
   assert_contains "$log_file" 'Downloading Codex Expert Teams...'
   assert_contains "$log_file" "Version: $PROJECT_VERSION"
   assert_contains "$log_file" '$expert-ops'
+  assert_contains "$log_file" '$expert-security'
 }
 
 test_version_metadata() {
@@ -137,9 +143,10 @@ test_reinstall_replaces_stale_content_and_backs_up() {
 
   PATH="$fake_bin:$PATH" CODEX_HOME="$codex_home" "$REPO_ROOT/install.sh" >"$log_file"
 
-  first_backup="$codex_home/skills/expert-ops.bak.20260610_120000"
+  first_backup="$codex_home/backups/expert-team/20260610_120000/skills/expert-ops"
   assert_contains "$first_backup/SKILL.md" 'local modification'
   assert_file "$first_backup/stale.txt"
+  assert_not_exists "$codex_home/skills/expert-ops.bak.20260610_120000"
   assert_not_exists "$installed_skill/stale.txt"
   assert_tree_matches "$REPO_ROOT/.codex/skills/expert-ops" "$installed_skill"
 
@@ -148,16 +155,17 @@ test_reinstall_replaces_stale_content_and_backs_up() {
 
   PATH="$fake_bin:$PATH" CODEX_HOME="$codex_home" "$REPO_ROOT/install.sh" >>"$log_file"
 
-  second_backup="$codex_home/skills/expert-ops.bak.20260610_120000.1"
+  second_backup="$codex_home/backups/expert-team/20260610_120000.1/skills/expert-ops"
   assert_contains "$second_backup/SKILL.md" 'second modification'
   assert_file "$second_backup/second-stale.txt"
+  assert_not_exists "$codex_home/skills/expert-ops.bak.20260610_120000.1"
   assert_not_exists "$installed_skill/stale.txt"
   assert_not_exists "$installed_skill/second-stale.txt"
   assert_tree_matches "$REPO_ROOT/.codex/skills/expert-ops" "$installed_skill"
 
-  backup_count="$(find "$codex_home/skills" -maxdepth 1 -type d \
-    -name 'expert-ops.bak.*' -print | wc -l | tr -d ' ')"
-  [ "$backup_count" = "2" ] || fail "Expected 2 unique expert-ops backups, got $backup_count"
+  backup_count="$(find "$codex_home/backups/expert-team" -mindepth 1 -maxdepth 1 \
+    -type d -name '20260610_120000*' -print | wc -l | tr -d ' ')"
+  [ "$backup_count" = "2" ] || fail "Expected 2 unique backup runs, got $backup_count"
   assert_contains "$log_file" 'Backed up:'
 }
 

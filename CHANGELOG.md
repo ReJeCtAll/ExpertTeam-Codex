@@ -2,6 +2,24 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [1.2.0] - 2026-06-13
+
+### 新增
+
+- 新增安全专家 `expert-security`，覆盖威胁建模、漏洞评估、安全代码审查、安全架构、事件响应、安全运营和合规审计。
+- 新增 `security-expert` Agent、`expert-security` Skill 和 Slash Command。
+- 总路由器支持通过 `security` 自动或显式路由到安全专家。
+- 安装器回归测试新增安全专家文件、Skill metadata 和安装日志断言。
+
+### 变更
+
+- 专家系统扩展为 6 个入口 Skills、19 个 Agents 和 6 个兼容 Commands。
+- README、使用指南、架构文档和安全说明同步补充安全专家能力、调用方式、协作边界和安装备份路径。
+
+### 修复
+
+- 安装器备份目录移出 `~/.codex/skills` 扫描范围，避免重装备份被 Codex 误识别为旧 Skill。
+
 ## [1.1.0] - 2026-06-10
 
 ### 新增
@@ -36,5 +54,6 @@
 - 支持 Codex CLI 与 Codex App 的 Skill 调用方式。
 - 支持本地安装、远程一键安装和安装前自动备份。
 
+[1.2.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/releases/tag/v1.0.0

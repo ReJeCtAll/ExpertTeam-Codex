@@ -1,0 +1,4 @@
+interface:
+  display_name: "安全专家"
+  short_description: "威胁建模、漏洞评估、安全代码审查、安全架构、事件响应与合规审计"
+  default_prompt: "Use $expert-security to assess application security risks and produce an actionable security plan."

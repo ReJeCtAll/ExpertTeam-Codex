@@ -27,6 +27,7 @@ $expert-team software 修复登录后白屏问题
 $expert-team design 做一个高端 B2B SaaS 官网原型
 $expert-team product 分析 AI 笔记产品的竞品和路线图
 $expert-team ops Design monitoring, backup, and capacity plans for production services
+$expert-team security Review authentication, payment, and privacy risks before launch
 ```
 
 ---
@@ -154,7 +155,7 @@ $expert-product --brainstorm 围绕 AI 个人知识库做 20 个产品创意，�
 
 ## 5. 基础设施运维专家
 
-适合：部署上线、监控告警、云基础设施与 IaC、安全加固、成本优化、备份恢复和容量规划。
+适合：部署上线、监控告警、云基础设施与 IaC、基础设施安全加固、成本优化、备份恢复和容量规划。
 
 ### 监控告警
 
@@ -188,14 +189,49 @@ $expert-ops --capacity Create a capacity plan for the next 12 months of growth
 $expert-ops --full Assess monitoring, architecture, security, cost, backup, and capacity
 ```
 
-## 6. 跨团队流水线
+## 6. 安全专家
+
+适合：威胁建模、漏洞评估、安全代码审查、安全架构、事件响应、安全运营和合规审计。
+
+### 安全防护
+
+```text
+$expert-security --protect Design zero trust controls and DevSecOps gates for a microservice system
+```
+
+### 威胁检测
+
+```text
+$expert-security --detect Assess OWASP Top 10, API authorization, dependencies, and SBOM risks
+```
+
+### 安全运营
+
+```text
+$expert-security --ops Create an incident response plan, SOC metrics, and vulnerability lifecycle
+```
+
+### 常用任务
+
+```text
+$expert-security --audit Produce a full security assessment report for this repository
+$expert-security --threat Build a STRIDE threat model for the authentication module
+$expert-security --incident Write an incident response plan for credential leakage
+$expert-security --code-review Review this code path for authentication and authorization flaws
+$expert-security --compliance Map privacy controls to GDPR and personal information protection requirements
+$expert-security --full Assess protection, detection, operations, code, architecture, and compliance
+```
+
+## 7. 跨团队流水线
 
 ### 从想法到代码
 
 ```text
 $expert-product --prd <产品想法>
+$expert-security --protect <define privacy, data protection, and abuse prevention requirements>
 $expert-design --full <基于 PRD 做原型>
 $expert-software --standard <基于 PRD 和原型实现>
+$expert-security --code-review <review implementation before launch>
 $expert-ops --full <design deployment, monitoring, and operations from the system architecture>
 ```
 
@@ -217,14 +253,16 @@ $expert-software --code <把原型落到项目代码里>
 ### 线上稳定性治理
 
 ```text
-$expert-ops --full <assess reliability, security, cost, and recoverability>
+$expert-security --audit <assess application and data security risks>
+$expert-ops --full <assess reliability, infrastructure security, cost, and recoverability>
 $expert-software --bugfix <fix findings that require code changes>
+$expert-security --code-review <verify code-level security fixes>
 $expert-ops --monitor <verify monitoring, alerts, and runtime metrics>
 ```
 
 ---
 
-## 7. Codex App 桌面版用法
+## 8. Codex App 桌面版用法
 
 Codex App 桌面版与 Codex CLI 使用同一套 `$skill-name` 入口。安装后在桌面版对话框中直接输入：
 
@@ -233,6 +271,7 @@ $expert-software --fast 做一个 Todo App
 $expert-design --full 做一个 AI Agent 平台 Landing Page
 $expert-product --prd 写一个 AI 笔记功能 PRD
 $expert-ops --monitor Design a monitoring and alerting plan for production services
+$expert-security --audit Assess authentication, payment, and privacy risks
 $expert-team product 分析 AI 笔记产品的竞品和路线图
 ```
 
@@ -246,7 +285,7 @@ Unrecognized command '/expert-software'
 
 ---
 
-## 8. 安装后验证
+## 9. 安装后验证
 
 在 Codex CLI 或 Codex App 桌面版输入：
 
@@ -262,29 +301,31 @@ expert-software
 expert-design
 expert-product
 expert-ops
+expert-security
 ```
 
 如果看不到：
 
-1. 确认对应文件存在，例如 `~/.codex/skills/expert-ops/SKILL.md`。
+1. 确认对应文件存在，例如 `~/.codex/skills/expert-security/SKILL.md`。
 2. 重启 Codex CLI 或 Codex App 桌面版。
 3. 确认 `SKILL.md` frontmatter 中的 `name` 与目录名一致。
 
 ---
 
-## 9. 最佳实践
+## 10. 最佳实践
 
 - 小需求优先 `$expert-software --fast`，避免流程过重。
 - 大需求先 `$expert-product --prd`，再进入设计和研发。
 - 视觉质量不满意时，不要直接让工程师改 CSS，先让 `$expert-design --review` 做质量门禁。
 - 竞品、路线图、指标问题不要交给软件团队，优先产品战略团队。
 - 部署、监控、备份、云资源和容量问题优先交给 `$expert-ops`。
+- 威胁建模、漏洞评估、安全代码审查、事件响应和合规审计优先交给 `$expert-security`。
 - 运维专家默认先做只读发现；生产变更必须明确风险、回滚和验证步骤。
-- 涉及认证、支付、隐私、密钥、权限时，额外做安全审查。
+- 涉及认证、支付、隐私、密钥、权限时，额外使用 `$expert-security` 做安全审查。
 
 ---
 
-## 10. 关于 Slash Commands
+## 11. 关于 Slash Commands
 
 仓库中仍保留 `.codex/commands/expert-*.md` 作为可选兼容层。但如果你的 Codex CLI 或 Codex App 桌面版提示：
 

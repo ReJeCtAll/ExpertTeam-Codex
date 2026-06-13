@@ -17,11 +17,11 @@
 `install.sh` 会在替换同名文件或目录前创建备份：
 
 ```text
-<filename>.bak.<timestamp>
-<filename>.bak.<timestamp>.<sequence>
+~/.codex/backups/expert-team/<timestamp>/<relative-path>
+~/.codex/backups/expert-team/<timestamp>.<sequence>/<relative-path>
 ```
 
-当同一秒内发生多次安装时，脚本使用递增序号保留每次备份。备份成功后，同名组件会被完整替换，而不是与旧目录合并，以避免已删除的旧配置继续生效。
+当同一秒内发生多次安装时，脚本使用递增序号保留每次备份。备份目录位于 `~/.codex/backups/expert-team/`，不会留在 `~/.codex/skills` 扫描范围内。备份成功后，同名组件会被完整替换，而不是与旧目录合并，以避免已删除的旧配置继续生效。
 
 建议安装前先检查本地 `~/.codex` 中已有配置，确认没有重要自定义内容会被覆盖。
 

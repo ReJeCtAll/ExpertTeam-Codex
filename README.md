@@ -1,10 +1,10 @@
 # Codex Expert Teams
 
-一套可直接安装到 `~/.codex` 的专家配置，面向 **Codex CLI / Codex App 桌面版的 Skill 调用方式** 提供 3 个专家团、1 个基础设施运维专家与 1 个总路由入口。
+一套可直接安装到 `~/.codex` 的专家配置，面向 **Codex CLI / Codex App 桌面版的 Skill 调用方式** 提供 3 个专家团、2 个单专家与 1 个总路由入口。
 
-当前版本：**v1.1.0**。完整更新内容见 [CHANGELOG.md](CHANGELOG.md)。
+当前版本：**v1.2.0**。完整更新内容见 [CHANGELOG.md](CHANGELOG.md)。
 
-> 重要：Codex CLI 和 Codex App 桌面版当前主要通过 `$skill-name` 调用 Skill，例如 `$design`。因此本仓库的推荐调用方式是 `$expert-software`、`$expert-design`、`$expert-product`、`$expert-ops`、`$expert-team`。
+> 重要：Codex CLI 和 Codex App 桌面版当前主要通过 `$skill-name` 调用 Skill，例如 `$design`。因此本仓库的推荐调用方式是 `$expert-software`、`$expert-design`、`$expert-product`、`$expert-ops`、`$expert-security`、`$expert-team`。
 
 ---
 
@@ -14,6 +14,7 @@
 - **设计原型专家团**：需求发现、设计系统选择、高保真原型、质量审查、导出交付。
 - **产品战略团队**：PRD、用户研究、竞品分析、指标分析、路线图、Sprint、干系人沟通。
 - **基础设施运维专家**：监控告警、云基础设施与 IaC、安全加固、成本优化、备份恢复、容量规划。
+- **安全专家**：威胁建模、漏洞评估、安全代码审查、安全架构、事件响应、安全运营、合规审计。
 - **专家团总路由器**：根据任务自动选择合适团队或专家，也支持手动指定。
 
 适用场景：想把 Codex 从「单个助手」升级为「可路由、可协作、可复用的专家团系统」。
@@ -31,6 +32,7 @@
 │   │   ├── expert-design/            # Codex CLI/App 入口：$expert-design
 │   │   ├── expert-product/           # Codex CLI/App 入口：$expert-product
 │   │   ├── expert-ops/               # Codex CLI/App 入口：$expert-ops
+│   │   ├── expert-security/          # Codex CLI/App 入口：$expert-security
 │   │   ├── design-systems/           # 设计系统知识库
 │   │   ├── prototype-templates/      # 原型模板
 │   │   ├── quality-review/           # 质量审查规则
@@ -53,13 +55,15 @@
 │   │   ├── competitive-analyst.md
 │   │   ├── data-analyst.md
 │   │   ├── roadmap-planner.md
-│   │   └── infrastructure-operations-expert.md
+│   │   ├── infrastructure-operations-expert.md
+│   │   └── security-expert.md
 │   └── commands/                     # 可选兼容配置
 │       ├── expert-team.md
 │       ├── expert-software.md
 │       ├── expert-design.md
 │       ├── expert-product.md
-│       └── expert-ops.md
+│       ├── expert-ops.md
+│       └── expert-security.md
 ├── docs/
 │   ├── USAGE.md
 │   └── TEAM_ARCHITECTURE.md
@@ -101,7 +105,7 @@ curl -fsSL https://raw.githubusercontent.com/ReJeCtAll/ExpertTeam-Codex/main/ins
 1. 下载 GitHub 仓库的最新 `main` 分支归档。
 2. 创建 `~/.codex/skills`、`~/.codex/agents`、`~/.codex/commands`。
 3. 将专家团配置安装到本机 `~/.codex`。
-4. 对同名旧文件自动备份为 `.bak.<timestamp>[.<sequence>]`。
+4. 对同名旧文件自动备份到 `~/.codex/backups/expert-team/<timestamp>/`。
 5. 完整替换同名组件，避免升级后残留已删除的旧文件。
 
 需要本机已安装 `bash`、`curl` 和 `tar`。如使用了自定义 Codex 目录，可通过 `CODEX_HOME` 指定：
@@ -172,7 +176,7 @@ GitHub Actions 会在 `ubuntu-latest` 和 `macos-latest` 上自动执行同一�
 
 - `VERSION`：记录当前发布版本，是安装器输出和发布标签的版本来源。
 - `CHANGELOG.md`：记录每个版本的新增、变更和修复。
-- Git 标签：使用 `v<major>.<minor>.<patch>`，例如 `v1.1.0`。
+- Git 标签：使用 `v<major>.<minor>.<patch>`，例如 `v1.2.0`。
 
 版本升级规则：
 
@@ -192,6 +196,7 @@ $expert-team software <软件开发需求>
 $expert-team design <设计原型需求>
 $expert-team product <产品战略需求>
 $expert-team ops <基础设施运维需求>
+$expert-team security <安全审计/威胁建模/合规需求>
 ```
 
 ### 软件开发团队
@@ -240,6 +245,20 @@ $expert-ops --capacity <容量规划与增长预测>
 $expert-ops --full <完整基础设施健康评估>
 ```
 
+### 安全专家
+
+```text
+$expert-security --protect <零信任架构/DevSecOps/安全基线方案>
+$expert-security --detect <OWASP Top 10/API/依赖漏洞/入侵检测评估>
+$expert-security --ops <事件响应/SOC/漏洞管理生命周期/安全运营>
+$expert-security --audit <全面安全审计报告>
+$expert-security --threat <STRIDE 威胁建模>
+$expert-security --incident <事件响应预案 IRP>
+$expert-security --code-review <安全代码审查>
+$expert-security --compliance <等保/SOC2/ISO27001/GDPR 合规差距分析>
+$expert-security --full <完整安全健康评估>
+```
+
 ---
 
 ## 安装后验证
@@ -258,6 +277,7 @@ expert-software
 expert-design
 expert-product
 expert-ops
+expert-security
 ```
 
 然后测试：
@@ -274,7 +294,7 @@ $expert-software --fast 做一个 Todo App
 
 ![Codex Expert Teams skill picker](docs/assets/codex-skill-picker.jpg)
 
-日常使用时可以优先从 `$expert-team` 进入，由总路由根据需求分流到产品、设计、软件开发团队或基础设施运维专家：
+日常使用时可以优先从 `$expert-team` 进入，由总路由根据需求分流到产品、设计、软件开发团队、基础设施运维专家或安全专家：
 
 ![Codex Expert Teams usage example](docs/assets/expert-team-usage.jpg)
 
@@ -289,6 +309,7 @@ $expert-software --fast 做一个 Todo App
 $expert-design --full 做一个 AI Agent 平台 Landing Page
 $expert-product --prd 写一个 AI 笔记功能 PRD
 $expert-ops --monitor 为生产服务设计监控告警方案
+$expert-security --threat 对用户认证模块做 STRIDE 威胁建模
 $expert-team product 分析 AI 笔记产品的竞品和路线图
 ```
 
@@ -298,7 +319,7 @@ $expert-team product 分析 AI 笔记产品的竞品和路线图
 $expert
 ```
 
-若能看到 `expert-team`、`expert-software`、`expert-design`、`expert-product`、`expert-ops`，说明桌面版已识别这些专家 Skills。
+若能看到 `expert-team`、`expert-software`、`expert-design`、`expert-product`、`expert-ops`、`expert-security`，说明桌面版已识别这些专家 Skills。
 
 ---
 
@@ -308,8 +329,10 @@ $expert
 
 ```text
 $expert-product --prd <产品想法>
+$expert-security --protect <基于 PRD 前置安全和隐私要求>
 $expert-design --full <基于 PRD 做高保真原型>
 $expert-software --standard <基于 PRD 和原型实现工程代码>
+$expert-security --code-review <上线前安全代码审查>
 $expert-ops --full <基于系统架构设计部署、监控和运维方案>
 ```
 
@@ -329,8 +352,8 @@ $expert-design --full <页面或产品原型需求>
 
 - **专家团路由**：让任务先进入正确团队，而不是一个助手包办所有事情。
 - **主理人编排**：每个团队都有 Lead Agent，负责拆分、转交、汇总和收口。
-- **单专家直达**：运维任务由基础设施运维专家直接处理，避免为单一职责引入虚假团队结构。
-- **质量门禁**：软件团队有工程一致性与 QA 路由；设计团队有 5 维评分与 Anti-Slop 检查；产品团队有结构化报告与行动清单；运维专家有事实基线、变更回滚和验证要求。
+- **单专家直达**：运维和安全任务由对应单专家直接处理，避免为单一职责引入虚假团队结构。
+- **质量门禁**：软件团队有工程一致性与 QA 路由；设计团队有 5 维评分与 Anti-Slop 检查；产品团队有结构化报告与行动清单；运维专家有事实基线、变更回滚和验证要求；安全专家有授权范围、证据链、风险分级和验证闭环。
 - **可复用配置**：Skills、Agents、Commands 分离，方便单独替换或扩展。
 - **安全默认值**：安装脚本备份同名文件；仓库不包含密钥、Token 或个人绝对路径。
 

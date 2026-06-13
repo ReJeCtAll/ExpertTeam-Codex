@@ -1,6 +1,6 @@
 # 专家团架构说明
 
-Codex Expert Teams 由 5 个 Codex CLI / Codex App 桌面版入口 Skills、18 个 Agents、4 个支撑 Skills，以及 5 个可选 Slash Commands 兼容层组成。业务入口包括 3 个团队型专家团和 1 个单专家，总路由统一分发。
+Codex Expert Teams 由 6 个 Codex CLI / Codex App 桌面版入口 Skills、19 个 Agents、4 个支撑 Skills，以及 6 个可选 Slash Commands 兼容层组成。业务入口包括 3 个团队型专家团和 2 个单专家，总路由统一分发。
 
 ---
 
@@ -28,8 +28,10 @@ $expert-team
 │   ├── competitive-analyst
 │   ├── data-analyst
 │   └── roadmap-planner
-└── $expert-ops
-    └── infrastructure-operations-expert
+├── $expert-ops
+│   └── infrastructure-operations-expert
+└── $expert-security
+    └── security-expert
 ```
 
 ---
@@ -164,26 +166,64 @@ $expert-team
 - 合规结论必须基于证据，不能仅凭清单宣称通过认证
 - 成本与 ROI 必须给出计算口径，缺少数据时标注估算区间
 
-## 5. 跨专家协作边界
+## 5. 安全专家
+
+### 定位
+
+单专家模式，负责威胁建模、漏洞评估、安全代码审查、安全架构、事件响应、安全运营和合规审计。它与 `$expert-ops` 的边界是：安全专家定义风险、控制项、审计结论和验证闭环；运维专家负责基础设施、云资源、监控、WAF、SIEM 等生产环境落地。
+
+### Agent
+
+| Agent | 角色 | 职责 |
+|---|---|---|
+| `security-expert` | 安全专家 | 威胁建模、漏洞评估、代码审计、安全架构、事件响应、合规差距分析和整改路线图 |
+
+### 工作流
+
+- `--protect`：安全防护，覆盖威胁建模、零信任架构、DevSecOps、数据安全、IAM 和安全基线
+- `--detect`：威胁检测，覆盖 OWASP Top 10、API 安全、容器安全、依赖漏洞、SBOM、代码审计、入侵检测、WAF 和 RASP
+- `--ops`：安全运营，覆盖事件响应、根因分析、SOC 建设、漏洞管理生命周期和合规治理
+- `--audit`：全面安全审计
+- `--threat`：STRIDE 威胁建模
+- `--incident`：事件响应预案
+- `--code-review`：安全代码审查
+- `--compliance`：等保、SOC 2、ISO 27001、GDPR、个人信息保护法或 PCI-DSS 合规差距分析
+- `--full`：完整安全健康评估
+
+### 质量门禁
+
+- 必须确认评估范围、授权边界和敏感数据处理方式
+- 发现必须绑定证据、位置、影响、复现条件、修复建议和验证方式
+- 严重等级按 Critical / High / Medium / Low / Info 标准化输出
+- 合规结论只能说明控制项覆盖、证据质量和差距，不能仅凭清单宣称通过认证
+- 未经授权不探测第三方系统，不绕过访问控制，不执行破坏性攻击
+
+## 6. 跨专家协作边界
 
 ```text
 $expert-product
+      ↓
+$expert-security
       ↓
 $expert-design
       ↓
 $expert-software
       ↓
+$expert-security
+      ↓
 $expert-ops
 ```
 
 - 产品战略团队负责产品决策、需求分析和投资优先级。
+- 安全专家在产品阶段提供隐私、安全和合规输入，在上线前执行威胁建模、代码审计和安全评估。
 - 设计原型专家团负责视觉设计、交互和原型。
 - 软件开发团队负责代码、测试和工程实现。
-- 基础设施运维专家负责部署、监控、安全、成本、备份和容量。
+- 基础设施运维专家负责部署、监控、基础设施安全加固、成本、备份和容量。
 - 运维专家发现需要开发自动化工具或平台功能时，转交 `$expert-software`。
 - 运维专家遇到容量投资和预算优先级决策时，转交 `$expert-product`。
+- 安全专家发现需要代码修复时，转交 `$expert-software`；发现需要云资源、WAF、SIEM 或生产变更落地时，转交 `$expert-ops`。
 
-## 6. 扩展方式
+## 7. 扩展方式
 
 ### 新增团队
 

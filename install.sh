@@ -7,6 +7,7 @@ ARCHIVE_URL="${EXPERT_TEAM_ARCHIVE_URL:-https://github.com/ReJeCtAll/ExpertTeam-
 TEMP_DIR=""
 ROOT_DIR=""
 PROJECT_VERSION="unknown"
+BACKUP_ROOT=""
 
 cleanup() {
   if [ -n "$TEMP_DIR" ] && [ -d "$TEMP_DIR" ]; then
@@ -65,17 +66,33 @@ if [ -f "$ROOT_DIR/VERSION" ]; then
   IFS= read -r PROJECT_VERSION <"$ROOT_DIR/VERSION"
 fi
 
+ensure_backup_root() {
+  if [ -n "$BACKUP_ROOT" ]; then
+    return 0
+  fi
+
+  local base_path="$TARGET_DIR/backups/expert-team/$TIMESTAMP"
+  local candidate="$base_path"
+  local suffix=1
+
+  while [ -e "$candidate" ] || [ -L "$candidate" ]; do
+    candidate="${base_path}.${suffix}"
+    suffix=$((suffix + 1))
+  done
+
+  mkdir -p "$candidate"
+  BACKUP_ROOT="$candidate"
+}
+
 backup_if_exists() {
   local target="$1"
   if [ -e "$target" ] || [ -L "$target" ]; then
-    local backup_path="${target}.bak.${TIMESTAMP}"
-    local suffix=1
+    ensure_backup_root
 
-    while [ -e "$backup_path" ] || [ -L "$backup_path" ]; do
-      backup_path="${target}.bak.${TIMESTAMP}.${suffix}"
-      suffix=$((suffix + 1))
-    done
+    local relative_target="${target#"$TARGET_DIR"/}"
+    local backup_path="$BACKUP_ROOT/$relative_target"
 
+    mkdir -p "$(dirname "$backup_path")"
     cp -R "$target" "$backup_path"
     echo "Backed up: $target -> $backup_path"
   fi
@@ -122,5 +139,6 @@ echo '  $expert-software'
 echo '  $expert-design'
 echo '  $expert-product'
 echo '  $expert-ops'
+echo '  $expert-security'
 echo ""
 echo 'Tip: type $expert in Codex CLI to verify skill discovery.'
