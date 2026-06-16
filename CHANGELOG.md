@@ -2,6 +2,22 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [1.3.0] - 2026-06-16
+
+### 新增
+
+- 新增 `docs/RELEASE.md` 发布检查清单，明确版本更新、验证、标签和发布后的远程安装复核步骤。
+- 安装器回归测试新增仓库元数据一致性检查，覆盖 Skill/Agent/Command 数量、frontmatter 名称匹配、发布文档存在性和版本链接。
+
+### 变更
+
+- 将可选 Slash Command 兼容层中的用户示例统一收敛为 `$expert-*` Skill 调用入口，减少 Codex CLI 和 Codex App 桌面版中的误用。
+- README 兼容性说明补充 `.codex/commands/expert-*.md` 仅作为旧环境兼容层。
+
+### 修复
+
+- 修复 command 兼容文档中仍引导用户转交 `/expert-*` 的不一致表述。
+
 ## [1.2.0] - 2026-06-13
 
 ### 新增
@@ -54,6 +70,7 @@
 - 支持 Codex CLI 与 Codex App 的 Skill 调用方式。
 - 支持本地安装、远程一键安装和安装前自动备份。
 
+[1.3.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/releases/tag/v1.0.0

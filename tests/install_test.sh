@@ -32,6 +32,13 @@ assert_contains() {
   grep -Fq "$expected" "$file_path" || fail "Expected '$expected' in $file_path"
 }
 
+assert_not_contains() {
+  local file_path="$1"
+  local unexpected="$2"
+  ! grep -Fq "$unexpected" "$file_path" ||
+    fail "Did not expect '$unexpected' in $file_path"
+}
+
 assert_tree_matches() {
   local source_dir="$1"
   local target_dir="$2"
@@ -118,6 +125,62 @@ test_version_metadata() {
     fail "VERSION is not valid SemVer: $PROJECT_VERSION"
   assert_contains "$REPO_ROOT/README.md" "当前版本：**v$PROJECT_VERSION**"
   assert_contains "$REPO_ROOT/CHANGELOG.md" "## [$PROJECT_VERSION]"
+  assert_contains "$REPO_ROOT/CHANGELOG.md" "[$PROJECT_VERSION]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/"
+  assert_contains "$REPO_ROOT/README.md" "例如 \`v$PROJECT_VERSION\`"
+  assert_file "$REPO_ROOT/docs/RELEASE.md"
+  assert_contains "$REPO_ROOT/docs/RELEASE.md" "VERSION"
+  assert_contains "$REPO_ROOT/docs/RELEASE.md" "CHANGELOG.md"
+  assert_contains "$REPO_ROOT/docs/RELEASE.md" "tests/install_test.sh"
+}
+
+test_repository_metadata_consistency() {
+  local skill_count=""
+  local agent_count=""
+  local command_count=""
+  local skill_dir=""
+  local skill_name=""
+  local agent_file=""
+  local agent_name=""
+  local command_file=""
+
+  skill_count="$(find "$REPO_ROOT/.codex/skills" -mindepth 1 -maxdepth 1 \
+    -type d -print | wc -l | tr -d ' ')"
+  agent_count="$(find "$REPO_ROOT/.codex/agents" -maxdepth 1 \
+    -type f -name '*.md' -print | wc -l | tr -d ' ')"
+  command_count="$(find "$REPO_ROOT/.codex/commands" -maxdepth 1 \
+    -type f -name 'expert-*.md' -print | wc -l | tr -d ' ')"
+
+  [ "$skill_count" = "10" ] || fail "Expected 10 skills, got $skill_count"
+  [ "$agent_count" = "19" ] || fail "Expected 19 agents, got $agent_count"
+  [ "$command_count" = "6" ] || fail "Expected 6 commands, got $command_count"
+
+  assert_contains "$REPO_ROOT/docs/TEAM_ARCHITECTURE.md" \
+    "6 个 Codex CLI / Codex App 桌面版入口 Skills、19 个 Agents、4 个支撑 Skills，以及 6 个可选 Slash Commands"
+  assert_contains "$REPO_ROOT/CHANGELOG.md" \
+    "6 个入口 Skills、19 个 Agents 和 6 个兼容 Commands"
+
+  for skill_dir in "$REPO_ROOT/.codex/skills"/*; do
+    [ -d "$skill_dir" ] || continue
+    assert_file "$skill_dir/SKILL.md"
+    skill_name="$(sed -n 's/^name: //p' "$skill_dir/SKILL.md" | head -n 1)"
+    [ "$skill_name" = "$(basename "$skill_dir")" ] ||
+      fail "Skill name mismatch: $skill_dir declares '$skill_name'"
+  done
+
+  for agent_file in "$REPO_ROOT/.codex/agents"/*.md; do
+    agent_name="$(sed -n 's/^name: //p' "$agent_file" | head -n 1)"
+    [ "$agent_name" = "$(basename "$agent_file" .md)" ] ||
+      fail "Agent name mismatch: $agent_file declares '$agent_name'"
+  done
+
+  for command_file in "$REPO_ROOT/.codex/commands"/expert-*.md; do
+    assert_not_contains "$command_file" '转交 `/expert-'
+    assert_not_contains "$command_file" '联动 `/expert-'
+    assert_not_contains "$command_file" '→ `/expert-'
+    if [ "$(basename "$command_file")" != "expert-team.md" ]; then
+      assert_not_contains "$command_file" '/expert-'
+    fi
+  done
 }
 
 test_reinstall_replaces_stale_content_and_backs_up() {
@@ -192,6 +255,7 @@ test_invalid_archive_fails_cleanly() {
 }
 
 run_test "version metadata consistency" test_version_metadata
+run_test "repository metadata consistency" test_repository_metadata_consistency
 run_test "local install with custom path" test_local_install
 run_test "piped archive install" test_piped_archive_install
 run_test "reinstall backup and replacement" test_reinstall_replaces_stale_content_and_backs_up

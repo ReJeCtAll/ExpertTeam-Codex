@@ -13,18 +13,20 @@ argument-hint: "[--prd|--competitive|--research|--metrics|--roadmap|--sprint|--s
 
 由产品总监领导的 5 人产品专家团队：需求分析师、用户研究员、竞品分析师、数据分析师、路线图规划师，面向产品战略、竞品分析和路线图规划。
 
-## Codex 直接调用入口
+## 推荐调用入口
 
 ```text
-/expert-product --prd <功能规格书/PRD/需求分析>
-/expert-product --competitive <竞品分析/市场定位/Battle Card>
-/expert-product --research <用户访谈/问卷/NPS/反馈综合>
-/expert-product --metrics <产品指标/漏斗/留存/异常分析>
-/expert-product --roadmap <路线图/季度规划/优先级排序>
-/expert-product --sprint <Sprint 规划/故事拆分/容量评估>
-/expert-product --stakeholder <周报/月报/项目进展/高管更新>
-/expert-product --brainstorm <产品创意发散与收敛>
+$expert-product --prd <功能规格书/PRD/需求分析>
+$expert-product --competitive <竞品分析/市场定位/Battle Card>
+$expert-product --research <用户访谈/问卷/NPS/反馈综合>
+$expert-product --metrics <产品指标/漏斗/留存/异常分析>
+$expert-product --roadmap <路线图/季度规划/优先级排序>
+$expert-product --sprint <Sprint 规划/故事拆分/容量评估>
+$expert-product --stakeholder <周报/月报/项目进展/高管更新>
+$expert-product --brainstorm <产品创意发散与收敛>
 ```
+
+> 本文件仅作为可选 Slash Command 兼容层。Codex CLI 和 Codex App 桌面版优先使用 `$skill-name` 调用 Skill。
 
 ## Lead Agent
 
@@ -64,8 +66,8 @@ argument-hint: "[--prd|--competitive|--research|--metrics|--roadmap|--sprint|--s
 ## 边界
 
 - 产品战略团队不直接写代码。
-- 如用户请求进入工程实现，应先输出 PRD/策略产物，并建议转交 `/expert-software`。
-- 如用户请求高保真界面/视觉原型，应建议转交 `/expert-design`。
+- 如用户请求进入工程实现，应先输出 PRD/策略产物，并建议转交 `$expert-software`。
+- 如用户请求高保真界面/视觉原型，应建议转交 `$expert-design`。
 - 最终交付物按 lead prompt 要求落盘到用户当前工作区的 `deliverables/product-strategy/`。
 
 ## 交付口径

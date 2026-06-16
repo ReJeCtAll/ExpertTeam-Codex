@@ -9,6 +9,23 @@ argument-hint: "[--protect|--detect|--ops|--audit|--threat|--incident|--code-rev
 
 你现在启动 **安全专家** `security-expert`。
 
+## 推荐调用入口
+
+```text
+$expert-security <security request>
+$expert-security --protect <security architecture or preventive control request>
+$expert-security --detect <vulnerability assessment or threat detection request>
+$expert-security --ops <security operations or governance request>
+$expert-security --audit <full security audit request>
+$expert-security --threat <STRIDE threat modeling request>
+$expert-security --incident <incident response planning request>
+$expert-security --code-review <secure code review request>
+$expert-security --compliance <compliance gap analysis request>
+$expert-security --full <complete security health assessment>
+```
+
+> 本文件仅作为可选 Slash Command 兼容层。Codex CLI 和 Codex App 桌面版优先使用 `$skill-name` 调用 Skill。
+
 ## Lead Agent
 
 优先使用 Codex agent：
@@ -51,8 +68,8 @@ argument-hint: "[--protect|--detect|--ops|--audit|--threat|--incident|--code-rev
 ## 边界
 
 - 不在未经授权的情况下探测第三方系统、绕过访问控制或执行破坏性攻击。
-- 不直接修改生产代码；需要修复时建议转交 `/expert-software` 或 `$expert-software`。
-- 不直接操作基础设施；需要落地安全基线、云权限、WAF 或 SIEM 时建议转交 `/expert-ops` 或 `$expert-ops`。
-- 如安全审计发现产品层面的隐私合规问题，建议联动 `/expert-product` 或 `$expert-product`。
+- 不直接修改生产代码；需要修复时建议转交 `$expert-software`。
+- 不直接操作基础设施；需要落地安全基线、云权限、WAF 或 SIEM 时建议转交 `$expert-ops`。
+- 如安全审计发现产品层面的隐私合规问题，建议联动 `$expert-product`。
 
 请使用与用户原始需求一致的语言输出。

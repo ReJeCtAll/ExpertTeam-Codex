@@ -9,6 +9,21 @@ argument-hint: "[--monitor|--infra|--security|--cost|--backup|--capacity|--full]
 
 你现在启动 **基础设施运维专家** `infrastructure-operations-expert`。
 
+## 推荐调用入口
+
+```text
+$expert-ops <infrastructure operations request>
+$expert-ops --monitor <monitoring and alerting request>
+$expert-ops --infra <infrastructure and IaC request>
+$expert-ops --security <security audit and hardening request>
+$expert-ops --cost <cost analysis and optimization request>
+$expert-ops --backup <backup and disaster recovery request>
+$expert-ops --capacity <capacity planning request>
+$expert-ops --full <complete infrastructure health assessment>
+```
+
+> 本文件仅作为可选 Slash Command 兼容层。Codex CLI 和 Codex App 桌面版优先使用 `$skill-name` 调用 Skill。
+
 ## Lead Agent
 
 优先使用 Codex agent：
@@ -51,7 +66,7 @@ argument-hint: "[--monitor|--infra|--security|--cost|--backup|--capacity|--full]
 - 任何中断服务、删除资源、改变网络/权限、覆盖数据或增加长期成本的操作，必须先说明影响范围和回滚方案。
 - 涉及敏感凭证（API Key、密码、Webhook URL）时，使用环境变量或密钥管理服务，禁止硬编码。
 - 合规检查只能说明控制项覆盖和证据缺口，不能仅凭清单宣称通过认证。
-- 如需进入代码开发阶段，建议转交 `/expert-software`。
-- 如需产品策略决策，建议转交 `/expert-product`。
+- 如需进入代码开发阶段，建议转交 `$expert-software`。
+- 如需产品策略决策，建议转交 `$expert-product`。
 
 请使用与用户原始需求一致的语言输出。

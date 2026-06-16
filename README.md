@@ -2,7 +2,7 @@
 
 一套可直接安装到 `~/.codex` 的专家配置，面向 **Codex CLI / Codex App 桌面版的 Skill 调用方式** 提供 3 个专家团、2 个单专家与 1 个总路由入口。
 
-当前版本：**v1.2.0**。完整更新内容见 [CHANGELOG.md](CHANGELOG.md)。
+当前版本：**v1.3.0**。完整更新内容见 [CHANGELOG.md](CHANGELOG.md)。
 
 > 重要：Codex CLI 和 Codex App 桌面版当前主要通过 `$skill-name` 调用 Skill，例如 `$design`。因此本仓库的推荐调用方式是 `$expert-software`、`$expert-design`、`$expert-product`、`$expert-ops`、`$expert-security`、`$expert-team`。
 
@@ -88,6 +88,7 @@ README 作为快速入口，适合先了解能力范围、安装方式和正式�
 | [docs/USAGE.md](docs/USAGE.md) | 常用调用方式、跨团队流水线、安装后验证和常见问题排查。 | 安装完成后快速上手，或需要确认 `$expert-*` 的具体用法。 |
 | [docs/TEAM_ARCHITECTURE.md](docs/TEAM_ARCHITECTURE.md) | 专家团、Agents、Skills 的组织结构、团队职责、质量门禁和扩展方式。 | 需要理解系统边界，或准备扩展新团队、新 Agent、新 Skill。 |
 | [CHANGELOG.md](CHANGELOG.md) | 各版本新增能力、行为变更和问题修复。 | 升级前确认版本差异和兼容性影响。 |
+| [docs/RELEASE.md](docs/RELEASE.md) | 发布检查清单、版本更新步骤和验证命令。 | 准备发布新版本或复核 release 流程时。 |
 | [SECURITY.md](SECURITY.md) | 仓库安全边界、安装安全提示、使用时需要额外审查的高风险场景和问题报告方式。 | 发布、安装，或将专家团用于认证、支付、隐私、部署等敏感任务前。 |
 
 ---
@@ -176,7 +177,7 @@ GitHub Actions 会在 `ubuntu-latest` 和 `macos-latest` 上自动执行同一�
 
 - `VERSION`：记录当前发布版本，是安装器输出和发布标签的版本来源。
 - `CHANGELOG.md`：记录每个版本的新增、变更和修复。
-- Git 标签：使用 `v<major>.<minor>.<patch>`，例如 `v1.2.0`。
+- Git 标签：使用 `v<major>.<minor>.<patch>`，例如 `v1.3.0`。
 
 版本升级规则：
 
@@ -365,6 +366,7 @@ $expert-design --full <页面或产品原型需求>
 |---|---|---|
 | Codex CLI 支持 Skills | `$expert-*` | 推荐，当前主入口 |
 | Codex App 桌面版支持 Skills | `$expert-*` | 与 CLI 同样用法 |
+| 可选 Slash Commands 兼容层 | `.codex/commands/expert-*.md` | 仅用于仍读取 commands 的旧环境 |
 | 环境支持 Agents | `$expert-*` + agents | 更接近多角色专家团 |
 | 只支持普通对话 | 复制 Skill 内容 | 可作为结构化 Prompt 使用 |
 

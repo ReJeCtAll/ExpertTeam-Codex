@@ -13,17 +13,19 @@ argument-hint: "[--fast|--bugfix|--prd|--arch|--code|--test|--standard] <软件�
 
 高效软件研发团队：产品经理定需求、架构师设计并拆任务、工程师批量实现代码、QA 验证质量，小需求支持快速模式。
 
-## Codex 直接调用入口
+## 推荐调用入口
 
 ```text
-/expert-software --fast <小型功能/单页应用/工具脚本>
-/expert-software --bugfix <Bug 描述、复现步骤、期望行为>
-/expert-software --standard <中大型软件需求>
-/expert-software --prd <只输出 PRD>
-/expert-software --arch <只做架构设计与任务分解>
-/expert-software --code <基于现有设计实现代码>
-/expert-software --test <只做测试与回归验证>
+$expert-software --fast <小型功能/单页应用/工具脚本>
+$expert-software --bugfix <Bug 描述、复现步骤、期望行为>
+$expert-software --standard <中大型软件需求>
+$expert-software --prd <只输出 PRD>
+$expert-software --arch <只做架构设计与任务分解>
+$expert-software --code <基于现有设计实现代码>
+$expert-software --test <只做测试与回归验证>
 ```
+
+> 本文件仅作为可选 Slash Command 兼容层。Codex CLI 和 Codex App 桌面版优先使用 `$skill-name` 调用 Skill。
 
 ## Lead Agent
 

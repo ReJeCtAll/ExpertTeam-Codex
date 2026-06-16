@@ -13,14 +13,16 @@ argument-hint: "[--style|--review|--export|--full] <设计/原型需求>"
 
 6 角色 AI 设计团队：覆盖从需求发现到品牌级原型交付的完整工作流，内置 71 套设计系统，产出高保真、可运行、可导出的原型。
 
-## Codex 直接调用入口
+## 推荐调用入口
 
 ```text
-/expert-design --full <从需求发现到原型导出完整流程>
-/expert-design --style <只推荐设计系统/视觉风格/设计令牌>
-/expert-design --review <审查现有原型或页面质量>
-/expert-design --export <导出已有原型为 HTML/PDF/PPTX/ZIP>
+$expert-design --full <从需求发现到原型导出完整流程>
+$expert-design --style <只推荐设计系统/视觉风格/设计令牌>
+$expert-design --review <审查现有原型或页面质量>
+$expert-design --export <导出已有原型为 HTML/PDF/PPTX/ZIP>
 ```
+
+> 本文件仅作为可选 Slash Command 兼容层。Codex CLI 和 Codex App 桌面版优先使用 `$skill-name` 调用 Skill。
 
 ## Lead Agent
 
