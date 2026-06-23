@@ -192,6 +192,41 @@ test_version_metadata() {
   assert_contains "$REPO_ROOT/docs/USAGE.md" "docs/TROUBLESHOOTING.md"
 }
 
+test_skill_display_metadata() {
+  local metadata_file=""
+
+  assert_contains "$REPO_ROOT/.codex/skills/expert-team/agents/openai.yaml" \
+    'display_name: "专家团总路由器"'
+  assert_contains "$REPO_ROOT/.codex/skills/expert-team/agents/openai.yaml" \
+    'short_description: "自动路由到软件、设计、产品、运维或安全专家"'
+  assert_contains "$REPO_ROOT/.codex/skills/expert-software/agents/openai.yaml" \
+    'display_name: "软件开发专家团"'
+  assert_contains "$REPO_ROOT/.codex/skills/expert-software/agents/openai.yaml" \
+    'short_description: "快速开发、Bug 修复、架构设计、代码实现、测试与 QA 验证"'
+  assert_contains "$REPO_ROOT/.codex/skills/expert-design/agents/openai.yaml" \
+    'display_name: "设计原型专家团"'
+  assert_contains "$REPO_ROOT/.codex/skills/expert-design/agents/openai.yaml" \
+    'short_description: "需求发现、设计系统选择、高保真原型、质量审查与导出交付"'
+  assert_contains "$REPO_ROOT/.codex/skills/expert-product/agents/openai.yaml" \
+    'display_name: "产品战略专家团"'
+  assert_contains "$REPO_ROOT/.codex/skills/expert-product/agents/openai.yaml" \
+    'short_description: "PRD、竞品分析、用户研究、指标分析、路线图与 Sprint 规划"'
+  assert_contains "$REPO_ROOT/.codex/skills/expert-ops/agents/openai.yaml" \
+    'display_name: "基础设施运维专家"'
+  assert_contains "$REPO_ROOT/.codex/skills/expert-ops/agents/openai.yaml" \
+    'short_description: "基础设施监控、云架构、安全加固、成本优化、备份恢复与容量规划"'
+  assert_contains "$REPO_ROOT/.codex/skills/expert-security/agents/openai.yaml" \
+    'display_name: "安全专家"'
+  assert_contains "$REPO_ROOT/.codex/skills/expert-security/agents/openai.yaml" \
+    'short_description: "威胁建模、漏洞评估、安全代码审查、安全架构、事件响应与合规审计"'
+
+  for metadata_file in "$REPO_ROOT/.codex/skills"/expert-*/agents/openai.yaml; do
+    assert_not_contains "$metadata_file" 'short_description: "Expert'
+    assert_not_contains "$metadata_file" 'short_description: "$expert-'
+    assert_not_contains "$metadata_file" 'short_description: "Use $expert-'
+  done
+}
+
 test_repository_metadata_consistency() {
   local skill_count=""
   local agent_count=""
@@ -314,6 +349,7 @@ test_invalid_archive_fails_cleanly() {
 }
 
 run_test "version metadata consistency" test_version_metadata
+run_test "skill display metadata consistency" test_skill_display_metadata
 run_test "repository metadata consistency" test_repository_metadata_consistency
 run_test "list components without writing" test_list_components
 run_test "dry run preview without writing" test_dry_run_does_not_write

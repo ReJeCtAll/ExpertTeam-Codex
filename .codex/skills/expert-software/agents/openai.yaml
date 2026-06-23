@@ -1,0 +1,4 @@
+interface:
+  display_name: "软件开发专家团"
+  short_description: "快速开发、Bug 修复、架构设计、代码实现、测试与 QA 验证"
+  default_prompt: "Use $expert-software to plan, implement, test, or fix software work."

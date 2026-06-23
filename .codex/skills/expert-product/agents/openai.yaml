@@ -1,0 +1,4 @@
+interface:
+  display_name: "产品战略专家团"
+  short_description: "PRD、竞品分析、用户研究、指标分析、路线图与 Sprint 规划"
+  default_prompt: "Use $expert-product to produce product strategy, PRD, research, metrics, or roadmap work."

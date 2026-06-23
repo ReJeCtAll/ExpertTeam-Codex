@@ -2,7 +2,7 @@
 
 一套可直接安装到 `~/.codex` 的专家配置，面向 **Codex CLI / Codex App 桌面版的 Skill 调用方式** 提供 3 个专家团、2 个单专家与 1 个总路由入口。
 
-当前版本：**v1.4.0**。完整更新内容见 [CHANGELOG.md](CHANGELOG.md)。
+当前版本：**v1.4.1**。完整更新内容见 [CHANGELOG.md](CHANGELOG.md)。
 
 > 重要：Codex CLI 和 Codex App 桌面版当前主要通过 `$skill-name` 调用 Skill，例如 `$design`。因此本仓库的推荐调用方式是 `$expert-software`、`$expert-design`、`$expert-product`、`$expert-ops`、`$expert-security`、`$expert-team`。
 
@@ -197,7 +197,7 @@ GitHub Actions 会在 `ubuntu-latest` 和 `macos-latest` 上自动执行同一�
 
 - `VERSION`：记录当前发布版本，是安装器输出和发布标签的版本来源。
 - `CHANGELOG.md`：记录每个版本的新增、变更和修复。
-- Git 标签：使用 `v<major>.<minor>.<patch>`，例如 `v1.4.0`。
+- Git 标签：使用 `v<major>.<minor>.<patch>`，例如 `v1.4.1`。
 
 版本升级规则：
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "设计原型专家团"
+  short_description: "需求发现、设计系统选择、高保真原型、质量审查与导出交付"
+  default_prompt: "Use $expert-design to create, review, or export product prototypes."

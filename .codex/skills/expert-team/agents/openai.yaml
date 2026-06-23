@@ -1,0 +1,4 @@
+interface:
+  display_name: "专家团总路由器"
+  short_description: "自动路由到软件、设计、产品、运维或安全专家"
+  default_prompt: "Use $expert-team to route a request to the right expert team."

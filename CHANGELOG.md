@@ -2,6 +2,13 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [1.4.1] - 2026-06-23
+
+### 变更
+
+- 为 `expert-team`、`expert-software`、`expert-design` 和 `expert-product` 补充中文展示名与短描述，统一 Codex App 技能列表中的用户可见文案。
+- 安装回归测试新增入口 Skill 展示元数据检查，避免后续重新出现中英标题混排。
+
 ## [1.4.0] - 2026-06-23
 
 ### 新增
@@ -86,6 +93,7 @@
 - 支持 Codex CLI 与 Codex App 的 Skill 调用方式。
 - 支持本地安装、远程一键安装和安装前自动备份。
 
+[1.4.1]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.1.0...v1.2.0
