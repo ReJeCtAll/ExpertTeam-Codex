@@ -2,7 +2,7 @@
 
 一套可直接安装到 `~/.codex` 的专家配置，面向 **Codex CLI / Codex App 桌面版的 Skill 调用方式** 提供 3 个专家团、2 个单专家与 1 个总路由入口。
 
-当前版本：**v1.3.0**。完整更新内容见 [CHANGELOG.md](CHANGELOG.md)。
+当前版本：**v1.4.0**。完整更新内容见 [CHANGELOG.md](CHANGELOG.md)。
 
 > 重要：Codex CLI 和 Codex App 桌面版当前主要通过 `$skill-name` 调用 Skill，例如 `$design`。因此本仓库的推荐调用方式是 `$expert-software`、`$expert-design`、`$expert-product`、`$expert-ops`、`$expert-security`、`$expert-team`。
 
@@ -66,9 +66,12 @@
 │       └── expert-security.md
 ├── docs/
 │   ├── USAGE.md
-│   └── TEAM_ARCHITECTURE.md
+│   ├── TROUBLESHOOTING.md
+│   ├── TEAM_ARCHITECTURE.md
+│   └── RELEASE.md
 ├── tests/
 │   └── install_test.sh
+├── CONTEXT.md
 ├── CHANGELOG.md
 ├── VERSION
 ├── install.sh
@@ -86,6 +89,7 @@ README 作为快速入口，适合先了解能力范围、安装方式和正式�
 | 文档 | 内容 | 适合阅读时机 |
 |---|---|---|
 | [docs/USAGE.md](docs/USAGE.md) | 常用调用方式、跨团队流水线、安装后验证和常见问题排查。 | 安装完成后快速上手，或需要确认 `$expert-*` 的具体用法。 |
+| [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | 安装预览、升级排障、Skill 发现、备份恢复和远程安装问题。 | 安装前想确认影响范围，或安装后看不到 `$expert-*` 时。 |
 | [docs/TEAM_ARCHITECTURE.md](docs/TEAM_ARCHITECTURE.md) | 专家团、Agents、Skills 的组织结构、团队职责、质量门禁和扩展方式。 | 需要理解系统边界，或准备扩展新团队、新 Agent、新 Skill。 |
 | [CHANGELOG.md](CHANGELOG.md) | 各版本新增能力、行为变更和问题修复。 | 升级前确认版本差异和兼容性影响。 |
 | [docs/RELEASE.md](docs/RELEASE.md) | 发布检查清单、版本更新步骤和验证命令。 | 准备发布新版本或复核 release 流程时。 |
@@ -116,6 +120,13 @@ curl -fsSL https://raw.githubusercontent.com/ReJeCtAll/ExpertTeam-Codex/main/ins
   | CODEX_HOME=/path/to/.codex bash
 ```
 
+安装前想确认影响范围，可先预览：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ReJeCtAll/ExpertTeam-Codex/main/install.sh \
+  | bash -s -- --dry-run
+```
+
 ### 方式 2：克隆后审查并安装
 
 适合希望在执行前检查脚本和仓库内容的用户：
@@ -124,7 +135,15 @@ curl -fsSL https://raw.githubusercontent.com/ReJeCtAll/ExpertTeam-Codex/main/ins
 git clone https://github.com/ReJeCtAll/ExpertTeam-Codex.git
 cd ExpertTeam-Codex
 chmod +x install.sh
+./install.sh --list
+./install.sh --dry-run
 ./install.sh
+```
+
+如只需要 `$expert-*` Skills 和 Agents，可跳过旧版 Slash Commands 兼容层：
+
+```bash
+./install.sh --no-commands
 ```
 
 ### 方式 3：手动复制
@@ -158,6 +177,7 @@ cp -R .codex/commands/* ~/.codex/commands/
 
 - 自定义 `CODEX_HOME` 的本地安装。
 - 模拟 `curl ... | bash` 的远程归档安装。
+- 安装预览、组件清单和跳过可选 Commands。
 - 重复安装时的备份、完整替换和同秒备份唯一性。
 - 无效归档的失败提示和非零退出状态。
 
@@ -177,7 +197,7 @@ GitHub Actions 会在 `ubuntu-latest` 和 `macos-latest` 上自动执行同一�
 
 - `VERSION`：记录当前发布版本，是安装器输出和发布标签的版本来源。
 - `CHANGELOG.md`：记录每个版本的新增、变更和修复。
-- Git 标签：使用 `v<major>.<minor>.<patch>`，例如 `v1.3.0`。
+- Git 标签：使用 `v<major>.<minor>.<patch>`，例如 `v1.4.0`。
 
 版本升级规则：
 
@@ -286,6 +306,8 @@ expert-security
 ```text
 $expert-software --fast 做一个 Todo App
 ```
+
+如果看不到 `$expert-*` 候选，优先参考 [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)。
 
 ---
 

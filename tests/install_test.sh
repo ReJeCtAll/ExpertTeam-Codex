@@ -39,6 +39,12 @@ assert_not_contains() {
     fail "Did not expect '$unexpected' in $file_path"
 }
 
+assert_log_contains() {
+  local file_path="$1"
+  local expected="$2"
+  grep -Fq -- "$expected" "$file_path" || fail "Expected '$expected' in $file_path"
+}
+
 assert_tree_matches() {
   local source_dir="$1"
   local target_dir="$2"
@@ -120,6 +126,54 @@ test_piped_archive_install() {
   assert_contains "$log_file" '$expert-security'
 }
 
+test_list_components() {
+  local case_root="$TEST_ROOT/list-components"
+  local codex_home="$case_root/.codex"
+  local log_file="$case_root/list.log"
+
+  mkdir -p "$case_root"
+  CODEX_HOME="$codex_home" "$REPO_ROOT/install.sh" --list >"$log_file"
+
+  assert_log_contains "$log_file" 'Codex Expert Teams components:'
+  assert_log_contains "$log_file" 'commands:'
+  assert_log_contains "$log_file" 'agents:'
+  assert_log_contains "$log_file" 'skills:'
+  assert_log_contains "$log_file" '  - expert-team'
+  assert_log_contains "$log_file" '  - expert-security'
+  assert_not_exists "$codex_home"
+}
+
+test_dry_run_does_not_write() {
+  local case_root="$TEST_ROOT/dry-run"
+  local codex_home="$case_root/.codex"
+  local log_file="$case_root/dry-run.log"
+
+  mkdir -p "$case_root"
+  CODEX_HOME="$codex_home" "$REPO_ROOT/install.sh" --dry-run >"$log_file"
+
+  assert_log_contains "$log_file" 'Dry run enabled. No files will be written.'
+  assert_log_contains "$log_file" 'Would install:'
+  assert_log_contains "$log_file" "$codex_home/skills/expert-team"
+  assert_log_contains "$log_file" "$codex_home/agents/software-team-lead.md"
+  assert_log_contains "$log_file" "$codex_home/commands/expert-team.md"
+  assert_not_exists "$codex_home"
+}
+
+test_no_commands_skips_compat_layer() {
+  local case_root="$TEST_ROOT/no-commands"
+  local codex_home="$case_root/.codex"
+  local log_file="$case_root/install.log"
+
+  mkdir -p "$case_root"
+  CODEX_HOME="$codex_home" "$REPO_ROOT/install.sh" --no-commands >"$log_file"
+
+  assert_tree_matches "$REPO_ROOT/.codex/agents" "$codex_home/agents"
+  assert_tree_matches "$REPO_ROOT/.codex/skills" "$codex_home/skills"
+  assert_not_exists "$codex_home/commands"
+  assert_log_contains "$log_file" 'Skipping optional Slash Commands compatibility layer.'
+  assert_log_contains "$log_file" 'Installation completed.'
+}
+
 test_version_metadata() {
   [[ "$PROJECT_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] ||
     fail "VERSION is not valid SemVer: $PROJECT_VERSION"
@@ -128,9 +182,14 @@ test_version_metadata() {
   assert_contains "$REPO_ROOT/CHANGELOG.md" "[$PROJECT_VERSION]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/"
   assert_contains "$REPO_ROOT/README.md" "例如 \`v$PROJECT_VERSION\`"
   assert_file "$REPO_ROOT/docs/RELEASE.md"
+  assert_file "$REPO_ROOT/docs/TROUBLESHOOTING.md"
+  assert_file "$REPO_ROOT/CONTEXT.md"
   assert_contains "$REPO_ROOT/docs/RELEASE.md" "VERSION"
   assert_contains "$REPO_ROOT/docs/RELEASE.md" "CHANGELOG.md"
   assert_contains "$REPO_ROOT/docs/RELEASE.md" "tests/install_test.sh"
+  assert_contains "$REPO_ROOT/README.md" "docs/TROUBLESHOOTING.md"
+  assert_contains "$REPO_ROOT/README.md" "CONTEXT.md"
+  assert_contains "$REPO_ROOT/docs/USAGE.md" "docs/TROUBLESHOOTING.md"
 }
 
 test_repository_metadata_consistency() {
@@ -256,8 +315,11 @@ test_invalid_archive_fails_cleanly() {
 
 run_test "version metadata consistency" test_version_metadata
 run_test "repository metadata consistency" test_repository_metadata_consistency
+run_test "list components without writing" test_list_components
+run_test "dry run preview without writing" test_dry_run_does_not_write
 run_test "local install with custom path" test_local_install
 run_test "piped archive install" test_piped_archive_install
+run_test "install without optional commands" test_no_commands_skips_compat_layer
 run_test "reinstall backup and replacement" test_reinstall_replaces_stale_content_and_backs_up
 run_test "invalid archive rejection" test_invalid_archive_fails_cleanly
 

@@ -310,6 +310,8 @@ expert-security
 2. 重启 Codex CLI 或 Codex App 桌面版。
 3. 确认 `SKILL.md` frontmatter 中的 `name` 与目录名一致。
 
+更完整的安装、升级、备份恢复和 Skill 发现排查步骤见 [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)。
+
 ---
 
 ## 10. 最佳实践

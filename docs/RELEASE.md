@@ -10,13 +10,13 @@
 
 ## 2. 更新版本元数据
 
-1. 更新 `VERSION`，内容只保留裸 SemVer，例如 `1.3.0`。
+1. 更新 `VERSION`，内容只保留裸 SemVer，例如 `<new-version>`。
 2. 更新 `README.md` 中的当前版本和版本示例。
 3. 在 `CHANGELOG.md` 顶部新增对应版本段落。
 4. 在 `CHANGELOG.md` 底部新增 compare link，例如：
 
 ```markdown
-[1.3.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.2.0...v1.3.0
+[<new-version>]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v<previous-version>...v<new-version>
 ```
 
 ## 3. 本地验证
@@ -36,16 +36,17 @@ tests/install_test.sh
 - `CHANGELOG.md` 存在当前版本段落和 compare link。
 - `.codex/skills/*/SKILL.md` 的 `name` 与目录名一致。
 - `.codex/agents/*.md` 的 `name` 与文件名一致。
-- 安装器本地安装、管道安装、重复安装备份和无效归档拒绝测试均通过。
+- README 和使用指南链接到 `docs/TROUBLESHOOTING.md`。
+- 安装器组件清单、安装预览、本地安装、管道安装、跳过可选 Commands、重复安装备份和无效归档拒绝测试均通过。
 
 ## 4. 创建标签
 
 确认本地验证通过后创建标签：
 
 ```bash
-git tag -a v1.3.0 -m "Release v1.3.0"
+git tag -a v<new-version> -m "Release v<new-version>"
 git push origin main
-git push origin v1.3.0
+git push origin v<new-version>
 ```
 
 ## 5. 发布后验证

@@ -2,6 +2,22 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [1.4.0] - 2026-06-23
+
+### 新增
+
+- 安装器新增 `--dry-run` 安装预览模式，可在不写入文件的情况下查看将安装或备份的组件。
+- 安装器新增 `--list` 组件清单模式，用于快速确认仓库包含的 Skills、Agents 和可选 Commands。
+- 安装器新增 `--no-commands` 选项，可跳过旧版 Slash Commands 兼容层，仅安装 Skills 和 Agents。
+- 新增 `docs/TROUBLESHOOTING.md`，覆盖安装预览、Skill 发现、Slash Commands 兼容层、备份恢复和远程安装失败排查。
+- 新增 `CONTEXT.md` 项目术语表，明确入口 Skill、支撑 Skill、Agent、单专家、兼容层和发布门禁等领域概念。
+
+### 变更
+
+- `docs/RELEASE.md` 改为可复用发布流程，不再写死上一版版本号。
+- README 补充安装预览、组件清单、跳过 Commands 和故障排查入口。
+- 安装回归测试扩展到组件清单、安装预览、跳过 Commands 和故障排查文档链接。
+
 ## [1.3.0] - 2026-06-16
 
 ### 新增
@@ -70,6 +86,7 @@
 - 支持 Codex CLI 与 Codex App 的 Skill 调用方式。
 - 支持本地安装、远程一键安装和安装前自动备份。
 
+[1.4.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.0.0...v1.1.0
