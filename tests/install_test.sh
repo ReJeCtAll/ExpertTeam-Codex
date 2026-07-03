@@ -88,6 +88,9 @@ assert_install_complete() {
   assert_file "$codex_home/skills/expert-ops/agents/openai.yaml"
   assert_file "$codex_home/skills/expert-security/SKILL.md"
   assert_file "$codex_home/skills/expert-security/agents/openai.yaml"
+  assert_file "$codex_home/skills/privacy-policy-pipl-audit/SKILL.md"
+  assert_file "$codex_home/skills/privacy-policy-pipl-audit/references/audit_framework.md"
+  assert_file "$codex_home/skills/privacy-policy-pipl-audit/agents/openai.yaml"
 }
 
 test_local_install() {
@@ -103,6 +106,7 @@ test_local_install() {
   assert_contains "$log_file" "Version: $PROJECT_VERSION"
   assert_contains "$log_file" '$expert-ops'
   assert_contains "$log_file" '$expert-security'
+  assert_contains "$log_file" '$privacy-policy-pipl-audit'
 }
 
 test_piped_archive_install() {
@@ -124,6 +128,7 @@ test_piped_archive_install() {
   assert_contains "$log_file" "Version: $PROJECT_VERSION"
   assert_contains "$log_file" '$expert-ops'
   assert_contains "$log_file" '$expert-security'
+  assert_contains "$log_file" '$privacy-policy-pipl-audit'
 }
 
 test_list_components() {
@@ -140,6 +145,7 @@ test_list_components() {
   assert_log_contains "$log_file" 'skills:'
   assert_log_contains "$log_file" '  - expert-team'
   assert_log_contains "$log_file" '  - expert-security'
+  assert_log_contains "$log_file" '  - privacy-policy-pipl-audit'
   assert_not_exists "$codex_home"
 }
 
@@ -154,6 +160,7 @@ test_dry_run_does_not_write() {
   assert_log_contains "$log_file" 'Dry run enabled. No files will be written.'
   assert_log_contains "$log_file" 'Would install:'
   assert_log_contains "$log_file" "$codex_home/skills/expert-team"
+  assert_log_contains "$log_file" "$codex_home/skills/privacy-policy-pipl-audit"
   assert_log_contains "$log_file" "$codex_home/agents/software-team-lead.md"
   assert_log_contains "$log_file" "$codex_home/commands/expert-team.md"
   assert_not_exists "$codex_home"
@@ -219,6 +226,10 @@ test_skill_display_metadata() {
     'display_name: "安全专家"'
   assert_contains "$REPO_ROOT/.codex/skills/expert-security/agents/openai.yaml" \
     'short_description: "威胁建模、漏洞评估、安全代码审查、安全架构、事件响应与合规审计"'
+  assert_contains "$REPO_ROOT/.codex/skills/privacy-policy-pipl-audit/agents/openai.yaml" \
+    'display_name: "隐私政策 PIPL 审查"'
+  assert_contains "$REPO_ROOT/.codex/skills/privacy-policy-pipl-audit/agents/openai.yaml" \
+    'short_description: "按 PIPL 和个人信息安全规范审查隐私政策文案"'
 
   for metadata_file in "$REPO_ROOT/.codex/skills"/expert-*/agents/openai.yaml; do
     assert_not_contains "$metadata_file" 'short_description: "Expert'
@@ -244,14 +255,14 @@ test_repository_metadata_consistency() {
   command_count="$(find "$REPO_ROOT/.codex/commands" -maxdepth 1 \
     -type f -name 'expert-*.md' -print | wc -l | tr -d ' ')"
 
-  [ "$skill_count" = "10" ] || fail "Expected 10 skills, got $skill_count"
+  [ "$skill_count" = "11" ] || fail "Expected 11 skills, got $skill_count"
   [ "$agent_count" = "19" ] || fail "Expected 19 agents, got $agent_count"
   [ "$command_count" = "6" ] || fail "Expected 6 commands, got $command_count"
 
   assert_contains "$REPO_ROOT/docs/TEAM_ARCHITECTURE.md" \
-    "6 个 Codex CLI / Codex App 桌面版入口 Skills、19 个 Agents、4 个支撑 Skills，以及 6 个可选 Slash Commands"
+    "6 个 Codex CLI / Codex App 桌面版入口 Skills、19 个 Agents、5 个支撑 Skills，以及 6 个可选 Slash Commands"
   assert_contains "$REPO_ROOT/CHANGELOG.md" \
-    "6 个入口 Skills、19 个 Agents 和 6 个兼容 Commands"
+    "6 个入口 Skills、19 个 Agents、5 个支撑 Skills 和 6 个兼容 Commands"
 
   for skill_dir in "$REPO_ROOT/.codex/skills"/*; do
     [ -d "$skill_dir" ] || continue

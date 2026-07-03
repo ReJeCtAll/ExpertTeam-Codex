@@ -2,7 +2,7 @@
 
 一套可直接安装到 `~/.codex` 的专家配置，面向 **Codex CLI / Codex App 桌面版的 Skill 调用方式** 提供 3 个专家团、2 个单专家与 1 个总路由入口。
 
-当前版本：**v1.4.1**。完整更新内容见 [CHANGELOG.md](CHANGELOG.md)。
+当前版本：**v1.5.0**。完整更新内容见 [CHANGELOG.md](CHANGELOG.md)。
 
 > 重要：Codex CLI 和 Codex App 桌面版当前主要通过 `$skill-name` 调用 Skill，例如 `$design`。因此本仓库的推荐调用方式是 `$expert-software`、`$expert-design`、`$expert-product`、`$expert-ops`、`$expert-security`、`$expert-team`。
 
@@ -15,6 +15,7 @@
 - **产品战略团队**：PRD、用户研究、竞品分析、指标分析、路线图、Sprint、干系人沟通。
 - **基础设施运维专家**：监控告警、云基础设施与 IaC、安全加固、成本优化、备份恢复、容量规划。
 - **安全专家**：威胁建模、漏洞评估、安全代码审查、安全架构、事件响应、安全运营、合规审计。
+- **隐私政策 PIPL 审查**：按 18 个维度审查隐私政策/隐私协议文案，输出合规判定、问题和整改建议。
 - **专家团总路由器**：根据任务自动选择合适团队或专家，也支持手动指定。
 
 适用场景：想把 Codex 从「单个助手」升级为「可路由、可协作、可复用的专家团系统」。
@@ -36,7 +37,8 @@
 │   │   ├── design-systems/           # 设计系统知识库
 │   │   ├── prototype-templates/      # 原型模板
 │   │   ├── quality-review/           # 质量审查规则
-│   │   └── product-playbook/         # 产品管理手册
+│   │   ├── product-playbook/         # 产品管理手册
+│   │   └── privacy-policy-pipl-audit/ # 隐私政策 PIPL 合规审查
 │   ├── agents/
 │   │   ├── software-team-lead.md
 │   │   ├── software-product-manager.md
@@ -197,7 +199,7 @@ GitHub Actions 会在 `ubuntu-latest` 和 `macos-latest` 上自动执行同一�
 
 - `VERSION`：记录当前发布版本，是安装器输出和发布标签的版本来源。
 - `CHANGELOG.md`：记录每个版本的新增、变更和修复。
-- Git 标签：使用 `v<major>.<minor>.<patch>`，例如 `v1.4.1`。
+- Git 标签：使用 `v<major>.<minor>.<patch>`，例如 `v1.5.0`。
 
 版本升级规则：
 
@@ -278,6 +280,7 @@ $expert-security --incident <事件响应预案 IRP>
 $expert-security --code-review <安全代码审查>
 $expert-security --compliance <等保/SOC2/ISO27001/GDPR 合规差距分析>
 $expert-security --full <完整安全健康评估>
+$privacy-policy-pipl-audit <隐私政策文本或文件路径>
 ```
 
 ---
@@ -299,6 +302,7 @@ expert-design
 expert-product
 expert-ops
 expert-security
+privacy-policy-pipl-audit
 ```
 
 然后测试：
@@ -342,7 +346,7 @@ $expert-team product 分析 AI 笔记产品的竞品和路线图
 $expert
 ```
 
-若能看到 `expert-team`、`expert-software`、`expert-design`、`expert-product`、`expert-ops`、`expert-security`，说明桌面版已识别这些专家 Skills。
+若能看到 `expert-team`、`expert-software`、`expert-design`、`expert-product`、`expert-ops`、`expert-security` 和 `privacy-policy-pipl-audit`，说明桌面版已识别这些 Skills。
 
 ---
 

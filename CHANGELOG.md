@@ -2,6 +2,18 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [1.5.0] - 2026-07-03
+
+### 新增
+
+- 新增 `privacy-policy-pipl-audit` 支撑 Skill，基于 PIPL 和 GB/T 35273-2020 对隐私政策/隐私协议文案进行 18 维合规审查。
+- 为隐私政策 PIPL 审查补充 Codex App 展示元数据和安装回归测试覆盖。
+
+### 变更
+
+- `expert-security`、`security-expert` 和 `expert-team` 路由说明补充 PIPL 隐私政策审查入口。
+- 专家系统扩展为 6 个入口 Skills、19 个 Agents、5 个支撑 Skills 和 6 个兼容 Commands。
+
 ## [1.4.1] - 2026-06-23
 
 ### 变更
@@ -93,6 +105,7 @@
 - 支持 Codex CLI 与 Codex App 的 Skill 调用方式。
 - 支持本地安装、远程一键安装和安装前自动备份。
 
+[1.5.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.4.1...v1.5.0
 [1.4.1]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.2.0...v1.3.0

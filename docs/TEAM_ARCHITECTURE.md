@@ -1,6 +1,6 @@
 # 专家团架构说明
 
-Codex Expert Teams 由 6 个 Codex CLI / Codex App 桌面版入口 Skills、19 个 Agents、4 个支撑 Skills，以及 6 个可选 Slash Commands 兼容层组成。业务入口包括 3 个团队型专家团和 2 个单专家，总路由统一分发。
+Codex Expert Teams 由 6 个 Codex CLI / Codex App 桌面版入口 Skills、19 个 Agents、5 个支撑 Skills，以及 6 个可选 Slash Commands 兼容层组成。业务入口包括 3 个团队型专家团和 2 个单专家，总路由统一分发。
 
 ---
 
@@ -189,6 +189,12 @@ $expert-team
 - `--code-review`：安全代码审查
 - `--compliance`：等保、SOC 2、ISO 27001、GDPR、个人信息保护法或 PCI-DSS 合规差距分析
 - `--full`：完整安全健康评估
+
+### Skills
+
+| Skill | 用途 |
+|---|---|
+| `privacy-policy-pipl-audit` | 基于 PIPL 和 GB/T 35273-2020 对隐私政策/隐私协议文案做 18 维合规审查 |
 
 ### 质量门禁
 

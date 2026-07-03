@@ -1,0 +1,4 @@
+interface:
+  display_name: "隐私政策 PIPL 审查"
+  short_description: "按 PIPL 和个人信息安全规范审查隐私政策文案"
+  default_prompt: "Use $privacy-policy-pipl-audit to review a privacy policy for PIPL compliance and produce a structured remediation report."

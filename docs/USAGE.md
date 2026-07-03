@@ -220,6 +220,7 @@ $expert-security --incident Write an incident response plan for credential leaka
 $expert-security --code-review Review this code path for authentication and authorization flaws
 $expert-security --compliance Map privacy controls to GDPR and personal information protection requirements
 $expert-security --full Assess protection, detection, operations, code, architecture, and compliance
+$privacy-policy-pipl-audit 审查 ./privacy-policy.md 的 PIPL 合规性
 ```
 
 ## 7. 跨团队流水线
@@ -302,11 +303,12 @@ expert-design
 expert-product
 expert-ops
 expert-security
+privacy-policy-pipl-audit
 ```
 
 如果看不到：
 
-1. 确认对应文件存在，例如 `~/.codex/skills/expert-security/SKILL.md`。
+1. 确认对应文件存在，例如 `~/.codex/skills/expert-security/SKILL.md` 和 `~/.codex/skills/privacy-policy-pipl-audit/SKILL.md`。
 2. 重启 Codex CLI 或 Codex App 桌面版。
 3. 确认 `SKILL.md` frontmatter 中的 `name` 与目录名一致。
 

@@ -3,7 +3,7 @@ name: expert-security
 description: |
   安全专家入口。用于 Codex CLI 的 $expert-security 调用。
   适用于威胁建模、漏洞评估、安全代码审查、安全架构设计、DevSecOps、安全运营、事件响应、合规审计和完整安全健康评估。
-  触发词：安全专家、威胁建模、STRIDE、OWASP、SAST、DAST、SBOM、漏洞评估、代码审计、事件响应、合规审计、SOC、等保、GDPR
+  触发词：安全专家、威胁建模、STRIDE、OWASP、SAST、DAST、SBOM、漏洞评估、代码审计、事件响应、合规审计、SOC、等保、GDPR、PIPL、隐私政策审查
 ---
 
 # Expert Security - 安全专家
@@ -50,6 +50,8 @@ $expert-security --full <complete security health assessment>
 - `--code-review`：对源代码进行安全代码审查，按 OWASP、CWE 和语言生态风险给出漏洞清单与修复建议。
 - `--compliance`：进行合规差距分析，覆盖等保 2.0、ISO 27001、SOC 2、GDPR、个人信息保护法或 PCI-DSS。
 - `--full`：完整安全健康评估，覆盖防护、检测、运营、代码、架构和合规。
+
+当用户要求审查隐私政策、隐私协议或个人信息处理规则的 PIPL 合规性时，优先加载并使用 `$privacy-policy-pipl-audit` 的 18 维审查框架。
 
 未提供参数时，根据用户意图选择单一方向；同时涉及三个及以上方向时使用完整安全健康评估。
 

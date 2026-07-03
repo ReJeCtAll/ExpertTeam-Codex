@@ -238,5 +238,6 @@ echo '  $expert-design'
 echo '  $expert-product'
 echo '  $expert-ops'
 echo '  $expert-security'
+echo '  $privacy-policy-pipl-audit'
 echo ""
 echo 'Tip: type $expert in Codex CLI to verify skill discovery.'

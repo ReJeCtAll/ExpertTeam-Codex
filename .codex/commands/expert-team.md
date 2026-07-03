@@ -17,7 +17,7 @@ argument-hint: "[software|design|product|ops|security|auto] <需求>"
 | 设计原型专家团 | `$expert-design` | `design-engine-team-lead` | 需求发现、设计系统选择、高保真 HTML/CSS 原型、质量审查、导出 | 原型文件、设计决策、质量报告 |
 | 产品战略团队 | `$expert-product` | `product-director` | PRD、用户研究、竞品分析、指标分析、路线图、Sprint、干系人沟通 | 产品策略/PRD/路线图报告 |
 | 基础设施运维专家 | `$expert-ops` | `infrastructure-operations-expert` | 部署上线、监控告警、云基础设施、安全加固、成本优化、备份恢复、容量规划 | 运维方案、配置、变更计划、健康报告 |
-| 安全专家 | `$expert-security` | `security-expert` | 威胁建模、漏洞评估、安全代码审查、安全架构、事件响应、合规审计 | 安全报告、威胁矩阵、修复建议、整改路线图 |
+| 安全专家 | `$expert-security` | `security-expert` | 威胁建模、漏洞评估、安全代码审查、安全架构、事件响应、合规审计、PIPL 隐私政策审查 | 安全报告、威胁矩阵、修复建议、整改路线图 |
 
 ## 参数直达
 
@@ -34,7 +34,7 @@ argument-hint: "[software|design|product|ops|security|auto] <需求>"
 - 明确要做页面视觉、设计系统、原型、HTML/CSS 原型、设计审查、导出 → `$expert-design <需求>`
 - 明确要做 PRD、产品策略、竞品、用户研究、指标、路线图、Sprint、干系人更新 → `$expert-product <需求>`
 - 明确要做部署、监控、告警、云资源、IaC、基础设施安全加固、备份、成本或容量规划 → `$expert-ops <需求>`
-- 明确要做威胁建模、漏洞评估、安全代码审查、应用安全架构、事件响应或合规审计 → `$expert-security <需求>`
+- 明确要做威胁建模、漏洞评估、安全代码审查、应用安全架构、事件响应、隐私政策 PIPL 审查或合规审计 → `$expert-security <需求>`
 
 ## 跨团队流水线
 

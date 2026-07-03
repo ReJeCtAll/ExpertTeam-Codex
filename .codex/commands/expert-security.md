@@ -43,7 +43,7 @@ $expert-security --full <complete security health assessment>
 - `--threat`：STRIDE 威胁建模。输出资产、入口、信任边界、威胁矩阵和缓解措施。
 - `--incident`：事件响应预案。输出分类定级、升级路径、取证保全、恢复流程和复盘机制。
 - `--code-review`：安全代码审查。按 OWASP、CWE 和语言生态风险给出漏洞清单与修复建议。
-- `--compliance`：合规差距分析。覆盖等保 2.0、ISO 27001、SOC 2、GDPR、个人信息保护法或 PCI-DSS。
+- `--compliance`：合规差距分析。覆盖等保 2.0、ISO 27001、SOC 2、GDPR、个人信息保护法、PIPL 隐私政策审查或 PCI-DSS。
 - `--full`：完整安全健康评估。覆盖防护、检测、运营、代码、架构和合规。
 
 未提供参数时，根据用户意图自动判断；同时涉及三个及以上方向时使用完整安全健康评估。
@@ -71,5 +71,6 @@ $expert-security --full <complete security health assessment>
 - 不直接修改生产代码；需要修复时建议转交 `$expert-software`。
 - 不直接操作基础设施；需要落地安全基线、云权限、WAF 或 SIEM 时建议转交 `$expert-ops`。
 - 如安全审计发现产品层面的隐私合规问题，建议联动 `$expert-product`。
+- 如用户要求审查隐私政策/隐私协议文案的 PIPL 合规性，优先使用 `$privacy-policy-pipl-audit`。
 
 请使用与用户原始需求一致的语言输出。

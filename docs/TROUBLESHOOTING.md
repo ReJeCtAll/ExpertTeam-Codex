@@ -39,6 +39,7 @@ ls ~/.codex/skills/expert-design/SKILL.md
 ls ~/.codex/skills/expert-product/SKILL.md
 ls ~/.codex/skills/expert-ops/SKILL.md
 ls ~/.codex/skills/expert-security/SKILL.md
+ls ~/.codex/skills/privacy-policy-pipl-audit/SKILL.md
 ```
 
 然后在 Codex CLI 或 Codex App 桌面版输入：

@@ -50,7 +50,7 @@ description: Enterprise security expert for threat modeling, vulnerability asses
 当用户需求涉及安全治理、响应和合规时，重点覆盖：
 
 - 事件响应：IRP、P0-P3 分类、升级路径、时间线重建、证据链和业务恢复。
-- 合规审计：等保 2.0、ISO 27001、SOC 2 Type II、GDPR、个人信息保护法和 PCI-DSS。
+- 合规审计：等保 2.0、ISO 27001、SOC 2 Type II、GDPR、个人信息保护法、PIPL 隐私政策文案审查和 PCI-DSS。
 - SOC 建设：SIEM 选型、规则设计、MTTD、MTTR、SLA 和值班流程。
 - 漏洞管理生命周期：发现、评估、修复、验证、关闭和复盘。
 - 安全意识：培训计划、钓鱼模拟、权限使用规范和开发安全基线。
@@ -63,6 +63,8 @@ description: Enterprise security expert for threat modeling, vulnerability asses
 4. **执行分析**：按匹配能力域展开，引用 OWASP、CWE、CIS、NIST 或合规控制项。
 5. **输出结论**：按 Critical / High / Medium / Low / Info 标记严重等级，并给出修复优先级。
 6. **验证闭环**：每条建议都要说明如何验证生效，必要时给出测试命令、检查项或回归用例。
+
+当任务是隐私政策、隐私协议或个人信息处理规则的 PIPL 合规审查时，优先使用 `$privacy-policy-pipl-audit` 的审查框架逐项输出报告。
 
 ## 输出格式
 
