@@ -2,6 +2,20 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 
+## [1.6.0] - 2026-07-07
+
+### 新增
+
+- 新增数据库优化专家 `expert-database`，覆盖 Schema 设计、SQL 查询优化、索引策略、执行计划分析、连接池、慢查询治理和安全迁移。
+- 新增 `database-optimization-expert` Agent、`expert-database` Skill 和 Slash Command。
+- 总路由器支持通过 `database` 自动或显式路由到数据库优化专家。
+- 安装器回归测试新增数据库专家文件、Skill metadata 和安装日志断言。
+
+### 变更
+
+- 专家系统扩展为 7 个入口 Skills、20 个 Agents、5 个支撑 Skills 和 7 个兼容 Commands。
+- README、使用指南和架构文档同步补充数据库专家能力、调用方式、协作边界和安装验证列表。
+
 ## [1.5.0] - 2026-07-03
 
 ### 新增
@@ -105,6 +119,7 @@
 - 支持 Codex CLI 与 Codex App 的 Skill 调用方式。
 - 支持本地安装、远程一键安装和安装前自动备份。
 
+[1.6.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.4.1...v1.5.0
 [1.4.1]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/ReJeCtAll/ExpertTeam-Codex/compare/v1.3.0...v1.4.0

@@ -1,10 +1,10 @@
 # Codex Expert Teams
 
-一套可直接安装到 `~/.codex` 的专家配置，面向 **Codex CLI / Codex App 桌面版的 Skill 调用方式** 提供 3 个专家团、2 个单专家与 1 个总路由入口。
+一套可直接安装到 `~/.codex` 的专家配置，面向 **Codex CLI / Codex App 桌面版的 Skill 调用方式** 提供 3 个专家团、3 个单专家与 1 个总路由入口。
 
-当前版本：**v1.5.0**。完整更新内容见 [CHANGELOG.md](CHANGELOG.md)。
+当前版本：**v1.6.0**。完整更新内容见 [CHANGELOG.md](CHANGELOG.md)。
 
-> 重要：Codex CLI 和 Codex App 桌面版当前主要通过 `$skill-name` 调用 Skill，例如 `$design`。因此本仓库的推荐调用方式是 `$expert-software`、`$expert-design`、`$expert-product`、`$expert-ops`、`$expert-security`、`$expert-team`。
+> 重要：Codex CLI 和 Codex App 桌面版当前主要通过 `$skill-name` 调用 Skill，例如 `$design`。因此本仓库的推荐调用方式是 `$expert-software`、`$expert-design`、`$expert-product`、`$expert-ops`、`$expert-security`、`$expert-database`、`$expert-team`。
 
 ---
 
@@ -15,6 +15,7 @@
 - **产品战略团队**：PRD、用户研究、竞品分析、指标分析、路线图、Sprint、干系人沟通。
 - **基础设施运维专家**：监控告警、云基础设施与 IaC、安全加固、成本优化、备份恢复、容量规划。
 - **安全专家**：威胁建模、漏洞评估、安全代码审查、安全架构、事件响应、安全运营、合规审计。
+- **数据库优化专家**：Schema 设计、SQL 查询优化、索引策略、安全迁移、连接池、慢查询治理。
 - **隐私政策 PIPL 审查**：按 18 个维度审查隐私政策/隐私协议文案，输出合规判定、问题和整改建议。
 - **专家团总路由器**：根据任务自动选择合适团队或专家，也支持手动指定。
 
@@ -34,6 +35,7 @@
 │   │   ├── expert-product/           # Codex CLI/App 入口：$expert-product
 │   │   ├── expert-ops/               # Codex CLI/App 入口：$expert-ops
 │   │   ├── expert-security/          # Codex CLI/App 入口：$expert-security
+│   │   ├── expert-database/          # Codex CLI/App 入口：$expert-database
 │   │   ├── design-systems/           # 设计系统知识库
 │   │   ├── prototype-templates/      # 原型模板
 │   │   ├── quality-review/           # 质量审查规则
@@ -58,14 +60,16 @@
 │   │   ├── data-analyst.md
 │   │   ├── roadmap-planner.md
 │   │   ├── infrastructure-operations-expert.md
-│   │   └── security-expert.md
+│   │   ├── security-expert.md
+│   │   └── database-optimization-expert.md
 │   └── commands/                     # 可选兼容配置
 │       ├── expert-team.md
 │       ├── expert-software.md
 │       ├── expert-design.md
 │       ├── expert-product.md
 │       ├── expert-ops.md
-│       └── expert-security.md
+│       ├── expert-security.md
+│       └── expert-database.md
 ├── docs/
 │   ├── USAGE.md
 │   ├── TROUBLESHOOTING.md
@@ -199,7 +203,7 @@ GitHub Actions 会在 `ubuntu-latest` 和 `macos-latest` 上自动执行同一�
 
 - `VERSION`：记录当前发布版本，是安装器输出和发布标签的版本来源。
 - `CHANGELOG.md`：记录每个版本的新增、变更和修复。
-- Git 标签：使用 `v<major>.<minor>.<patch>`，例如 `v1.5.0`。
+- Git 标签：使用 `v<major>.<minor>.<patch>`，例如 `v1.6.0`。
 
 版本升级规则：
 
@@ -220,6 +224,7 @@ $expert-team design <设计原型需求>
 $expert-team product <产品战略需求>
 $expert-team ops <基础设施运维需求>
 $expert-team security <安全审计/威胁建模/合规需求>
+$expert-team database <数据库优化/慢查询/索引/迁移需求>
 ```
 
 ### 软件开发团队
@@ -283,6 +288,18 @@ $expert-security --full <完整安全健康评估>
 $privacy-policy-pipl-audit <隐私政策文本或文件路径>
 ```
 
+### 数据库优化专家
+
+```text
+$expert-database --schema <Schema 设计/范式化/约束设计>
+$expert-database --query <SQL 查询优化/执行计划分析>
+$expert-database --index <索引策略/复合索引/部分索引>
+$expert-database --migration <安全迁移/零停机 DDL/回滚方案>
+$expert-database --pooling <连接池/PgBouncer/Supabase Pooler>
+$expert-database --review <数据库设计或 SQL 审查>
+$expert-database --full <完整数据库健康评估>
+```
+
 ---
 
 ## 安装后验证
@@ -302,6 +319,7 @@ expert-design
 expert-product
 expert-ops
 expert-security
+expert-database
 privacy-policy-pipl-audit
 ```
 
@@ -321,7 +339,7 @@ $expert-software --fast 做一个 Todo App
 
 ![Codex Expert Teams skill picker](docs/assets/codex-skill-picker.jpg)
 
-日常使用时可以优先从 `$expert-team` 进入，由总路由根据需求分流到产品、设计、软件开发团队、基础设施运维专家或安全专家：
+日常使用时可以优先从 `$expert-team` 进入，由总路由根据需求分流到产品、设计、软件开发团队、基础设施运维专家、安全专家或数据库优化专家：
 
 ![Codex Expert Teams usage example](docs/assets/expert-team-usage.jpg)
 
@@ -337,6 +355,7 @@ $expert-design --full 做一个 AI Agent 平台 Landing Page
 $expert-product --prd 写一个 AI 笔记功能 PRD
 $expert-ops --monitor 为生产服务设计监控告警方案
 $expert-security --threat 对用户认证模块做 STRIDE 威胁建模
+$expert-database --query 优化订单列表的慢 SQL 和索引
 $expert-team product 分析 AI 笔记产品的竞品和路线图
 ```
 
@@ -346,7 +365,7 @@ $expert-team product 分析 AI 笔记产品的竞品和路线图
 $expert
 ```
 
-若能看到 `expert-team`、`expert-software`、`expert-design`、`expert-product`、`expert-ops`、`expert-security` 和 `privacy-policy-pipl-audit`，说明桌面版已识别这些 Skills。
+若能看到 `expert-team`、`expert-software`、`expert-design`、`expert-product`、`expert-ops`、`expert-security`、`expert-database` 和 `privacy-policy-pipl-audit`，说明桌面版已识别这些 Skills。
 
 ---
 
@@ -359,6 +378,7 @@ $expert-product --prd <产品想法>
 $expert-security --protect <基于 PRD 前置安全和隐私要求>
 $expert-design --full <基于 PRD 做高保真原型>
 $expert-software --standard <基于 PRD 和原型实现工程代码>
+$expert-database --review <审查 Schema、SQL、索引和迁移方案>
 $expert-security --code-review <上线前安全代码审查>
 $expert-ops --full <基于系统架构设计部署、监控和运维方案>
 ```
@@ -379,8 +399,8 @@ $expert-design --full <页面或产品原型需求>
 
 - **专家团路由**：让任务先进入正确团队，而不是一个助手包办所有事情。
 - **主理人编排**：每个团队都有 Lead Agent，负责拆分、转交、汇总和收口。
-- **单专家直达**：运维和安全任务由对应单专家直接处理，避免为单一职责引入虚假团队结构。
-- **质量门禁**：软件团队有工程一致性与 QA 路由；设计团队有 5 维评分与 Anti-Slop 检查；产品团队有结构化报告与行动清单；运维专家有事实基线、变更回滚和验证要求；安全专家有授权范围、证据链、风险分级和验证闭环。
+- **单专家直达**：运维、安全和数据库任务由对应单专家直接处理，避免为单一职责引入虚假团队结构。
+- **质量门禁**：软件团队有工程一致性与 QA 路由；设计团队有 5 维评分与 Anti-Slop 检查；产品团队有结构化报告与行动清单；运维专家有事实基线、变更回滚和验证要求；安全专家有授权范围、证据链、风险分级和验证闭环；数据库专家有执行计划、迁移安全和性能验证要求。
 - **可复用配置**：Skills、Agents、Commands 分离，方便单独替换或扩展。
 - **安全默认值**：安装脚本备份同名文件；仓库不包含密钥、Token 或个人绝对路径。
 

@@ -82,12 +82,16 @@ assert_install_complete() {
   assert_tree_matches "$REPO_ROOT/.codex/skills" "$codex_home/skills"
   assert_file "$codex_home/agents/infrastructure-operations-expert.md"
   assert_file "$codex_home/agents/security-expert.md"
+  assert_file "$codex_home/agents/database-optimization-expert.md"
   assert_file "$codex_home/commands/expert-ops.md"
   assert_file "$codex_home/commands/expert-security.md"
+  assert_file "$codex_home/commands/expert-database.md"
   assert_file "$codex_home/skills/expert-ops/SKILL.md"
   assert_file "$codex_home/skills/expert-ops/agents/openai.yaml"
   assert_file "$codex_home/skills/expert-security/SKILL.md"
   assert_file "$codex_home/skills/expert-security/agents/openai.yaml"
+  assert_file "$codex_home/skills/expert-database/SKILL.md"
+  assert_file "$codex_home/skills/expert-database/agents/openai.yaml"
   assert_file "$codex_home/skills/privacy-policy-pipl-audit/SKILL.md"
   assert_file "$codex_home/skills/privacy-policy-pipl-audit/references/audit_framework.md"
   assert_file "$codex_home/skills/privacy-policy-pipl-audit/agents/openai.yaml"
@@ -106,6 +110,7 @@ test_local_install() {
   assert_contains "$log_file" "Version: $PROJECT_VERSION"
   assert_contains "$log_file" '$expert-ops'
   assert_contains "$log_file" '$expert-security'
+  assert_contains "$log_file" '$expert-database'
   assert_contains "$log_file" '$privacy-policy-pipl-audit'
 }
 
@@ -128,6 +133,7 @@ test_piped_archive_install() {
   assert_contains "$log_file" "Version: $PROJECT_VERSION"
   assert_contains "$log_file" '$expert-ops'
   assert_contains "$log_file" '$expert-security'
+  assert_contains "$log_file" '$expert-database'
   assert_contains "$log_file" '$privacy-policy-pipl-audit'
 }
 
@@ -145,6 +151,7 @@ test_list_components() {
   assert_log_contains "$log_file" 'skills:'
   assert_log_contains "$log_file" '  - expert-team'
   assert_log_contains "$log_file" '  - expert-security'
+  assert_log_contains "$log_file" '  - expert-database'
   assert_log_contains "$log_file" '  - privacy-policy-pipl-audit'
   assert_not_exists "$codex_home"
 }
@@ -205,7 +212,7 @@ test_skill_display_metadata() {
   assert_contains "$REPO_ROOT/.codex/skills/expert-team/agents/openai.yaml" \
     'display_name: "专家团总路由器"'
   assert_contains "$REPO_ROOT/.codex/skills/expert-team/agents/openai.yaml" \
-    'short_description: "自动路由到软件、设计、产品、运维或安全专家"'
+    'short_description: "自动路由到软件、设计、产品、运维、安全或数据库专家"'
   assert_contains "$REPO_ROOT/.codex/skills/expert-software/agents/openai.yaml" \
     'display_name: "软件开发专家团"'
   assert_contains "$REPO_ROOT/.codex/skills/expert-software/agents/openai.yaml" \
@@ -226,6 +233,10 @@ test_skill_display_metadata() {
     'display_name: "安全专家"'
   assert_contains "$REPO_ROOT/.codex/skills/expert-security/agents/openai.yaml" \
     'short_description: "威胁建模、漏洞评估、安全代码审查、安全架构、事件响应与合规审计"'
+  assert_contains "$REPO_ROOT/.codex/skills/expert-database/agents/openai.yaml" \
+    'display_name: "数据库优化专家"'
+  assert_contains "$REPO_ROOT/.codex/skills/expert-database/agents/openai.yaml" \
+    'short_description: "Schema 设计、SQL 查询优化、索引策略、安全迁移、连接池与数据库性能调优"'
   assert_contains "$REPO_ROOT/.codex/skills/privacy-policy-pipl-audit/agents/openai.yaml" \
     'display_name: "隐私政策 PIPL 审查"'
   assert_contains "$REPO_ROOT/.codex/skills/privacy-policy-pipl-audit/agents/openai.yaml" \
@@ -255,14 +266,14 @@ test_repository_metadata_consistency() {
   command_count="$(find "$REPO_ROOT/.codex/commands" -maxdepth 1 \
     -type f -name 'expert-*.md' -print | wc -l | tr -d ' ')"
 
-  [ "$skill_count" = "11" ] || fail "Expected 11 skills, got $skill_count"
-  [ "$agent_count" = "19" ] || fail "Expected 19 agents, got $agent_count"
-  [ "$command_count" = "6" ] || fail "Expected 6 commands, got $command_count"
+  [ "$skill_count" = "12" ] || fail "Expected 12 skills, got $skill_count"
+  [ "$agent_count" = "20" ] || fail "Expected 20 agents, got $agent_count"
+  [ "$command_count" = "7" ] || fail "Expected 7 commands, got $command_count"
 
   assert_contains "$REPO_ROOT/docs/TEAM_ARCHITECTURE.md" \
-    "6 个 Codex CLI / Codex App 桌面版入口 Skills、19 个 Agents、5 个支撑 Skills，以及 6 个可选 Slash Commands"
+    "7 个 Codex CLI / Codex App 桌面版入口 Skills、20 个 Agents、5 个支撑 Skills，以及 7 个可选 Slash Commands"
   assert_contains "$REPO_ROOT/CHANGELOG.md" \
-    "6 个入口 Skills、19 个 Agents、5 个支撑 Skills 和 6 个兼容 Commands"
+    "7 个入口 Skills、20 个 Agents、5 个支撑 Skills 和 7 个兼容 Commands"
 
   for skill_dir in "$REPO_ROOT/.codex/skills"/*; do
     [ -d "$skill_dir" ] || continue

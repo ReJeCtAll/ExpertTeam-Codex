@@ -1,0 +1,4 @@
+interface:
+  display_name: "数据库优化专家"
+  short_description: "Schema 设计、SQL 查询优化、索引策略、安全迁移、连接池与数据库性能调优"
+  default_prompt: "Use $expert-database to diagnose database performance and produce an actionable optimization plan."

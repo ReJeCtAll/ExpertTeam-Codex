@@ -28,6 +28,7 @@ $expert-team design 做一个高端 B2B SaaS 官网原型
 $expert-team product 分析 AI 笔记产品的竞品和路线图
 $expert-team ops Design monitoring, backup, and capacity plans for production services
 $expert-team security Review authentication, payment, and privacy risks before launch
+$expert-team database Optimize slow PostgreSQL queries and design safe indexes
 ```
 
 ---
@@ -223,7 +224,38 @@ $expert-security --full Assess protection, detection, operations, code, architec
 $privacy-policy-pipl-audit 审查 ./privacy-policy.md 的 PIPL 合规性
 ```
 
-## 7. 跨团队流水线
+## 7. 数据库优化专家
+
+适合：Schema 设计、SQL 查询优化、执行计划分析、索引策略、安全迁移、连接池和慢查询治理。
+
+### Schema 与索引
+
+```text
+$expert-database --schema Design the schema for orders, invoices, and payment events
+$expert-database --index Review indexes for user feeds, search filters, and dashboard queries
+```
+
+### 查询优化
+
+```text
+$expert-database --query Optimize this PostgreSQL query using EXPLAIN ANALYZE output
+```
+
+### 迁移与连接池
+
+```text
+$expert-database --migration Plan a zero-downtime migration for a 200GB orders table
+$expert-database --pooling Tune PgBouncer and connection limits for a serverless API
+```
+
+### 审查与完整评估
+
+```text
+$expert-database --review Review this ORM query path, migration script, and index plan
+$expert-database --full Assess schema, queries, indexes, migrations, pooling, monitoring, and capacity
+```
+
+## 8. 跨团队流水线
 
 ### 从想法到代码
 
@@ -232,6 +264,7 @@ $expert-product --prd <产品想法>
 $expert-security --protect <define privacy, data protection, and abuse prevention requirements>
 $expert-design --full <基于 PRD 做原型>
 $expert-software --standard <基于 PRD 和原型实现>
+$expert-database --review <review schema, SQL, indexes, and migration safety>
 $expert-security --code-review <review implementation before launch>
 $expert-ops --full <design deployment, monitoring, and operations from the system architecture>
 ```
@@ -241,6 +274,7 @@ $expert-ops --full <design deployment, monitoring, and operations from the syste
 ```text
 $expert-product --prd <新增功能需求>
 $expert-software --standard <基于 PRD 做增量开发>
+$expert-database --review <涉及数据模型、慢查询或迁移时审查数据库方案>
 ```
 
 ### 页面质量提升
@@ -261,9 +295,18 @@ $expert-security --code-review <verify code-level security fixes>
 $expert-ops --monitor <verify monitoring, alerts, and runtime metrics>
 ```
 
+### 数据库性能治理
+
+```text
+$expert-database --full <assess schema, slow queries, indexes, migrations, pooling, and monitoring>
+$expert-software --code <fix ORM queries, N+1 paths, and data access code>
+$expert-ops --monitor <add database metrics, slow-query monitoring, and connection-pool observability>
+$expert-database --review <verify execution plans and optimization results>
+```
+
 ---
 
-## 8. Codex App 桌面版用法
+## 9. Codex App 桌面版用法
 
 Codex App 桌面版与 Codex CLI 使用同一套 `$skill-name` 入口。安装后在桌面版对话框中直接输入：
 
@@ -273,6 +316,7 @@ $expert-design --full 做一个 AI Agent 平台 Landing Page
 $expert-product --prd 写一个 AI 笔记功能 PRD
 $expert-ops --monitor Design a monitoring and alerting plan for production services
 $expert-security --audit Assess authentication, payment, and privacy risks
+$expert-database --query Optimize slow SQL and indexing strategy
 $expert-team product 分析 AI 笔记产品的竞品和路线图
 ```
 
@@ -286,7 +330,7 @@ Unrecognized command '/expert-software'
 
 ---
 
-## 9. 安装后验证
+## 10. 安装后验证
 
 在 Codex CLI 或 Codex App 桌面版输入：
 
@@ -303,12 +347,13 @@ expert-design
 expert-product
 expert-ops
 expert-security
+expert-database
 privacy-policy-pipl-audit
 ```
 
 如果看不到：
 
-1. 确认对应文件存在，例如 `~/.codex/skills/expert-security/SKILL.md` 和 `~/.codex/skills/privacy-policy-pipl-audit/SKILL.md`。
+1. 确认对应文件存在，例如 `~/.codex/skills/expert-database/SKILL.md`、`~/.codex/skills/expert-security/SKILL.md` 和 `~/.codex/skills/privacy-policy-pipl-audit/SKILL.md`。
 2. 重启 Codex CLI 或 Codex App 桌面版。
 3. 确认 `SKILL.md` frontmatter 中的 `name` 与目录名一致。
 
@@ -316,7 +361,7 @@ privacy-policy-pipl-audit
 
 ---
 
-## 10. 最佳实践
+## 11. 最佳实践
 
 - 小需求优先 `$expert-software --fast`，避免流程过重。
 - 大需求先 `$expert-product --prd`，再进入设计和研发。
@@ -324,12 +369,13 @@ privacy-policy-pipl-audit
 - 竞品、路线图、指标问题不要交给软件团队，优先产品战略团队。
 - 部署、监控、备份、云资源和容量问题优先交给 `$expert-ops`。
 - 威胁建模、漏洞评估、安全代码审查、事件响应和合规审计优先交给 `$expert-security`。
+- Schema、SQL、索引、慢查询、连接池和数据库迁移问题优先交给 `$expert-database`。
 - 运维专家默认先做只读发现；生产变更必须明确风险、回滚和验证步骤。
 - 涉及认证、支付、隐私、密钥、权限时，额外使用 `$expert-security` 做安全审查。
 
 ---
 
-## 11. 关于 Slash Commands
+## 12. 关于 Slash Commands
 
 仓库中仍保留 `.codex/commands/expert-*.md` 作为可选兼容层。但如果你的 Codex CLI 或 Codex App 桌面版提示：
 

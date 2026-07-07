@@ -39,6 +39,7 @@ ls ~/.codex/skills/expert-design/SKILL.md
 ls ~/.codex/skills/expert-product/SKILL.md
 ls ~/.codex/skills/expert-ops/SKILL.md
 ls ~/.codex/skills/expert-security/SKILL.md
+ls ~/.codex/skills/expert-database/SKILL.md
 ls ~/.codex/skills/privacy-policy-pipl-audit/SKILL.md
 ```
 

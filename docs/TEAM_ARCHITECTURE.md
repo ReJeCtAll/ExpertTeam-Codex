@@ -1,6 +1,6 @@
 # 专家团架构说明
 
-Codex Expert Teams 由 6 个 Codex CLI / Codex App 桌面版入口 Skills、19 个 Agents、5 个支撑 Skills，以及 6 个可选 Slash Commands 兼容层组成。业务入口包括 3 个团队型专家团和 2 个单专家，总路由统一分发。
+Codex Expert Teams 由 7 个 Codex CLI / Codex App 桌面版入口 Skills、20 个 Agents、5 个支撑 Skills，以及 7 个可选 Slash Commands 兼容层组成。业务入口包括 3 个团队型专家团和 3 个单专家，总路由统一分发。
 
 ---
 
@@ -30,8 +30,10 @@ $expert-team
 │   └── roadmap-planner
 ├── $expert-ops
 │   └── infrastructure-operations-expert
-└── $expert-security
-    └── security-expert
+├── $expert-security
+│   └── security-expert
+└── $expert-database
+    └── database-optimization-expert
 ```
 
 ---
@@ -204,7 +206,37 @@ $expert-team
 - 合规结论只能说明控制项覆盖、证据质量和差距，不能仅凭清单宣称通过认证
 - 未经授权不探测第三方系统，不绕过访问控制，不执行破坏性攻击
 
-## 6. 跨专家协作边界
+## 6. 数据库优化专家
+
+### 定位
+
+单专家模式，负责 Schema 设计、SQL 查询优化、索引策略、执行计划分析、连接池、慢查询治理和安全迁移。它与 `$expert-software` 的边界是：数据库专家定义数据模型、SQL、索引和迁移方案；软件开发团队负责业务代码、ORM 查询、测试和工程实现。
+
+### Agent
+
+| Agent | 角色 | 职责 |
+|---|---|---|
+| `database-optimization-expert` | 数据库优化专家 | 事实基线、执行计划分析、Schema/索引设计、安全迁移、连接池治理和性能验证 |
+
+### 工作流
+
+- `--schema`：Schema 设计、约束、范式化与反范式化取舍
+- `--query`：SQL 查询优化、执行计划解读、慢查询和 N+1 查询治理
+- `--index`：B-tree、GIN、GiST、BRIN、部分索引、表达式索引、复合索引和写入成本评估
+- `--migration`：可逆迁移、零停机 DDL、分批回填、双写、锁风险和回滚方案
+- `--pooling`：PgBouncer、Supabase Pooler、serverless 连接治理和连接数上限
+- `--review`：审查已有 Schema、SQL、ORM 查询、索引或迁移脚本
+- `--full`：完整数据库健康评估
+
+### 质量门禁
+
+- 默认先做只读分析，不在未授权时修改生产数据库
+- 关键 SQL 和索引建议必须包含执行计划或可验证指标
+- 生产 DDL、索引创建和批量回填必须说明锁风险、回滚路径和观察窗口
+- 示例 SQL 必须标注数据库类型、版本假设和待替换变量
+- 涉及真实连接串、密码、Token、客户数据或个人敏感信息时必须脱敏
+
+## 7. 跨专家协作边界
 
 ```text
 $expert-product
@@ -215,6 +247,8 @@ $expert-design
       ↓
 $expert-software
       ↓
+$expert-database
+      ↓
 $expert-security
       ↓
 $expert-ops
@@ -224,12 +258,14 @@ $expert-ops
 - 安全专家在产品阶段提供隐私、安全和合规输入，在上线前执行威胁建模、代码审计和安全评估。
 - 设计原型专家团负责视觉设计、交互和原型。
 - 软件开发团队负责代码、测试和工程实现。
+- 数据库优化专家负责 Schema、SQL、索引、连接池、迁移安全和数据库性能验证。
 - 基础设施运维专家负责部署、监控、基础设施安全加固、成本、备份和容量。
 - 运维专家发现需要开发自动化工具或平台功能时，转交 `$expert-software`。
 - 运维专家遇到容量投资和预算优先级决策时，转交 `$expert-product`。
 - 安全专家发现需要代码修复时，转交 `$expert-software`；发现需要云资源、WAF、SIEM 或生产变更落地时，转交 `$expert-ops`。
+- 数据库专家发现需要改业务代码或 ORM 查询时，转交 `$expert-software`；需要数据库实例、备份、云监控或连接代理落地时，转交 `$expert-ops`；涉及 SQL 注入、敏感数据或审计合规时，转交 `$expert-security`。
 
-## 7. 扩展方式
+## 8. 扩展方式
 
 ### 新增团队
 
